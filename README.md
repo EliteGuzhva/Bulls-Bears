@@ -1,2 +1,4 @@
-# FinProject
-Collaboration project
+# Bulls&Bears
+## Stonkapps
+
+Study finance with **ease**
