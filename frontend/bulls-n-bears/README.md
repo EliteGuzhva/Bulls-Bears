@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+# Bulls and Bears React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Abstract
+
+This is UI part for B&B web app, a React Single Page Application.
+
+Following tools and technologies are used in addition:
+- Typescript
+- Emotion
 
 ## Available Scripts
 
