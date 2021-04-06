@@ -1,7 +1,7 @@
 {
   "name": "bulls-n-bears",
   "version": "0.1.0",
-  "homepage": "http://eliteguzhva.github.io/bulls-bears",
+  "homepage": "https://eliteguzhva.github.io/Bulls-Bears/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.1.5",
