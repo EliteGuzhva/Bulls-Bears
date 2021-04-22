@@ -31,16 +31,10 @@ class DatabaseMongoImpl(IDatabase):
 
     def get_all_lessons(self) -> List[Lesson]:
         results = self._lessons_collection.find({})
-        lessons = []
-        for result in results:
-            lessons.append(Lesson.from_json(result))
 
-        return lessons
+        return [Lesson.from_json(result) for result in results]
 
     def get_lessons_for_level(self, level_name: str) -> List[Lesson]:
         results = self._lessons_collection.find({"level_name": level_name})
-        lessons = []
-        for result in results:
-            lessons.append(Lesson.from_json(result))
 
-        return lessons
+        return [Lesson.from_json(result) for result in results]
