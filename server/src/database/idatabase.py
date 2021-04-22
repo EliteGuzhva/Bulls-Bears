@@ -1,6 +1,6 @@
+from typing import List
 from src.model.user import User
 from src.model.lesson import Lesson
-from src.model.lesson_collection import LessonCollection
 
 
 class IDatabase:
@@ -14,5 +14,8 @@ class IDatabase:
     def get_lesson(self, uid: str) -> Lesson:
         raise NotImplementedError()
 
-    def get_lessons(self) -> LessonCollection:
+    def get_all_lessons(self) -> List[Lesson]:
+        raise NotImplementedError()
+
+    def get_lessons_for_level(self, level_name: str) -> List[Lesson]:
         raise NotImplementedError()

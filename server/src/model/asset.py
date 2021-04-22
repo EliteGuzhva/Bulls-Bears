@@ -13,3 +13,10 @@ class Asset:
         self._amount = amount
         self._transactions = transactions
 
+    @classmethod
+    def from_json(cls, json_data):
+        ticker = json_data["ticker"]
+        amount = json_data["amount"]
+        transactions = [Transaction.from_json(t) for t in json_data["transactions"]]
+
+        return cls(ticker, amount, transactions)

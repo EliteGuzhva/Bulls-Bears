@@ -15,3 +15,11 @@ class SandboxData:
         self._balance = balance
         self._assets = assets
 
+    @classmethod
+    def from_json(cls, json_data):
+        virtual_start = json_data["virtual_start"]
+        virtual_current = json_data["virtual_current"]
+        balance = json_data["balance"]
+        assets = [Asset.from_json(a) for a in json_data["assets"]]
+
+        return cls(virtual_start, virtual_current, balance, assets)
