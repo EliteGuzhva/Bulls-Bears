@@ -1,8 +1,9 @@
 from typing import List
 
 from .idatabase import IDatabase
-from ..model.lesson import Lesson
 from ..model.user import User
+from ..model.lesson import Lesson
+from ..model.lesson_data import LessonData
 
 
 class DatabaseDummyImpl(IDatabase):
@@ -30,3 +31,8 @@ class DatabaseDummyImpl(IDatabase):
         print("get_lessons_for_level")
 
         return [Lesson.dummy()]
+
+    def get_lesson_data(self, uid: str) -> LessonData:
+        print ("get_lesson_data")
+
+        return LessonData.dummy()

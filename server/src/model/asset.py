@@ -24,3 +24,12 @@ class Asset:
     @classmethod
     def dummy(cls):
         return cls("", 0, [])
+
+    def to_json(self):
+        json_data = {
+            "ticker": self._ticker,
+            "amount": self._amount,
+            "transactions": [t.to_json() for t in self._transactions]
+        }
+
+        return json_data
