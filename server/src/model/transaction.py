@@ -38,3 +38,7 @@ class Transaction:
         operation_type = OperationType.from_string(json_data["operation_type"])
 
         return cls(amount, price, commission, timestamp, operation_type)
+
+    @classmethod
+    def dummy(cls):
+        return cls(0, 0.0, 0.0, "", OperationType.BUY)

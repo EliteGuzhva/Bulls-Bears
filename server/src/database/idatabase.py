@@ -1,6 +1,6 @@
 from typing import List
-from src.model.user import User
-from src.model.lesson import Lesson
+from ..model.user import User
+from ..model.lesson import Lesson
 
 
 class IDatabase:

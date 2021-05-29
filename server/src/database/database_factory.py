@@ -1,7 +1,7 @@
 from enum import Enum
-from src.database.idatabase import IDatabase
-from src.database.database_mongo_impl import DatabaseMongoImpl
-from src.database.database_dummy_impl import DatabaseDummyImpl
+from .idatabase import IDatabase
+from .database_mongo_impl import DatabaseMongoImpl
+from .database_dummy_impl import DatabaseDummyImpl
 
 
 class DatabaseType(Enum):

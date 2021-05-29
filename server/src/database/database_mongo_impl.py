@@ -1,9 +1,9 @@
 from typing import List
 from pymongo import MongoClient
 
-from src.database.idatabase import IDatabase
-from src.model.lesson import Lesson
-from src.model.user import User
+from .idatabase import IDatabase
+from ..model.lesson import Lesson
+from ..model.user import User
 
 
 class DatabaseMongoImpl(IDatabase):
@@ -22,7 +22,7 @@ class DatabaseMongoImpl(IDatabase):
 
     def authorize_user(self, login: str, name: str, surname: str, email: str, password: str, photo_url: str) -> User:
         # TODO
-        pass
+        return User.dummy()
 
     def get_lesson(self, uid: str) -> Lesson:
         result = self._lessons_collection.find_one({"_id": uid})

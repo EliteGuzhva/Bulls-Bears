@@ -25,3 +25,7 @@ class Lesson:
         uid = json_data["_id"]
 
         return cls(level_name, index, title, description, data, uid)
+
+    @classmethod
+    def dummy(cls):
+        return cls("", -1, "", "", "", "")

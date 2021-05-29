@@ -1,7 +1,7 @@
 from typing import Optional
 
-from src.model.sandboxdata import SandboxData
-from src.model.edudata import EduData
+from ..model.sandboxdata import SandboxData
+from ..model.edudata import EduData
 
 
 class User:
@@ -13,11 +13,11 @@ class User:
     _token: str = ""
     _edu_data: Optional[EduData] = None
     _sandbox_data: Optional[SandboxData] = None
-    _photo_url: str = None
+    _photo_url: Optional[str] = None
 
     def __init__(self, name: str, surname: str, login: str, email: str, uid: str, token: str,
                  edu_data: Optional[EduData], sandbox_data: Optional[SandboxData],
-                 photo_url: str):
+                 photo_url: Optional[str]):
         self._name = name
         self._surname = surname
         self._login = login
@@ -42,3 +42,7 @@ class User:
 
         return cls(name, surname, login, email, uid, token,
                    edu_data, sandbox_data, photo_url)
+
+    @classmethod
+    def dummy(cls):
+        return cls("", "", "", "", "", "", None, None, None)

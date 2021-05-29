@@ -1,6 +1,6 @@
 from typing import List
 
-from src.model.transaction import Transaction
+from .transaction import Transaction
 
 
 class Asset:
@@ -20,3 +20,7 @@ class Asset:
         transactions = [Transaction.from_json(t) for t in json_data["transactions"]]
 
         return cls(ticker, amount, transactions)
+
+    @classmethod
+    def dummy(cls):
+        return cls("", 0, [])

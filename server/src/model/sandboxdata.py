@@ -1,6 +1,6 @@
 from typing import List
 
-from src.model.asset import Asset
+from .asset import Asset
 
 
 class SandboxData:
@@ -23,3 +23,7 @@ class SandboxData:
         assets = [Asset.from_json(a) for a in json_data["assets"]]
 
         return cls(virtual_start, virtual_current, balance, assets)
+
+    @classmethod
+    def dummy(cls):
+        return cls("", "", 0.0, [])

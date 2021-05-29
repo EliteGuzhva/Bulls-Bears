@@ -21,3 +21,7 @@ class EduData:
         uid = json_data["_id"]
 
         return cls(score, in_progress, done, uid)
+
+    @classmethod
+    def dummy(cls):
+        return cls(0, [], [], "")
