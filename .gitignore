@@ -3,4 +3,4 @@
 .vscode
 .DS_Store
 server/venv
-server/tests/__pycache__
+*__pycache__*
