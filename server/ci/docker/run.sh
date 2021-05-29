@@ -1,7 +1,11 @@
+#!/bin/sh
+
+. .env
+
 docker run \
-    --rm -it \
+    --rm -t \
     --volume `pwd`/../..:/app:rw \
     --workdir=/app \
     -p 5000:5000 \
-    elit3guzhva/bulls-bears-server:0.0.2 \
+    ${HUB_USER}/${REPO_NAME}:${TAG} \
     python3 -m src.test
