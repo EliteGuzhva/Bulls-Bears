@@ -26,21 +26,3 @@ class TickerWarehouse:
 
     def get_all_history(self):
         return self._asset_history
-
-tick = ourTicker()
-
-k = tick.get_all_history()
-print(k)
-
-import os
-programPause = input("Press the <ENTER> key to continue...")
-# msft = yf.Ticker("MSFT")
-#
-# info = msft.info
-# print(info.keys())  # json
-#
-# hist = msft.history(start="2021-05-20", end="2021-05-25", interval="1m")
-# print(hist)  # pandas dataframe
-#
-#
-# open_price = hist["Close"]
