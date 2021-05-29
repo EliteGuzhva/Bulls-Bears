@@ -7,24 +7,28 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import { HomePage } from './Components/HomePage';
 import { NavigationBar } from './Components/NavigationBar';
 import { EducationPage, testProps } from './Components/Education/EducationPage';
+import { Provider } from 'react-redux';
+import store from './store';
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <HashRouter>
-        <NavigationBar />
-        <Page>
-          <Switch>
-            <Route path="/home">
-              <HomePage />
-            </Route>
-            <Route path="/education">
-              <EducationPage {...testProps} />
-            </Route>
-          </Switch>
-          {/* <Typography variant="h1">Bulls and Bears</Typography> */}
-        </Page>
-      </HashRouter>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <HashRouter>
+          <NavigationBar />
+          <Page>
+            <Switch>
+              <Route path="/home">
+                <HomePage />
+              </Route>
+              <Route path="/education">
+                <EducationPage {...testProps} />
+              </Route>
+            </Switch>
+            {/* <Typography variant="h1">Bulls and Bears</Typography> */}
+          </Page>
+        </HashRouter>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
