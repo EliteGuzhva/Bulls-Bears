@@ -15,6 +15,15 @@ class OperationType(Enum):
             return cls.BUY
 
 
+def operation_type_to_string(operation_type: OperationType) -> str:
+    if operation_type == OperationType.BUY:
+        return "BUY"
+    elif operation_type == OperationType.SELL:
+        return "SELL"
+    else:
+        return "BUY"
+
+
 class Transaction:
     _amount: int = 0
     _price: float = 0.0
@@ -42,3 +51,14 @@ class Transaction:
     @classmethod
     def dummy(cls):
         return cls(0, 0.0, 0.0, "", OperationType.BUY)
+
+    def to_json(self):
+        json_data = {
+            "amount": self._amount,
+            "price": self._price,
+            "commission": self._commission,
+            "timestamp": self._timestamp,
+            "operation_type": operation_type_to_string(self._operation_type)
+        }
+
+        return json_data

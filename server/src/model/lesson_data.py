@@ -14,10 +14,18 @@ class LessonData:
     @classmethod
     def from_json(cls, json_data):
         slides = [LessonSlide.from_json(s) for s in json_data["slides"]]
-        uid = json_data["_id"]
+        uid = str(json_data["_id"])
 
         return cls(slides, uid)
 
     @classmethod
     def dummy(cls):
         return cls([], "")
+
+    def to_json(self):
+        json_data = {
+            "slides": [s.to_json() for s in self._slides],
+            "_id": self._id
+        }
+
+        return json_data

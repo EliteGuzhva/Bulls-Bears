@@ -46,3 +46,18 @@ class User:
     @classmethod
     def dummy(cls):
         return cls("", "", "", "", "", "", None, None, None)
+
+    def to_json(self):
+        json_data = {
+            "name": self._name,
+            "surname": self._surname,
+            "login": self._login,
+            "email": self._email,
+            "uid": str(self._id),
+            "token": self._token,
+            "edu_data": self._edu_data.to_json(),
+            "sandbox_data": self._sandbox_data.to_json(),
+            "photo_url": self._photo_url
+        }
+
+        return json_data

@@ -27,3 +27,13 @@ class SandboxData:
     @classmethod
     def dummy(cls):
         return cls("", "", 0.0, [])
+
+    def to_json(self):
+        json_data = {
+            "virtual_start": self._virtual_start,
+            "virtual_current": self._virtual_current,
+            "balance": self._balance,
+            "assets": [a.to_json() for a in self._assets]
+        }
+
+        return json_data

@@ -18,10 +18,20 @@ class EduData:
         score = json_data["score"]
         in_progress = json_data["in_progress"]
         done = json_data["done"]
-        uid = json_data["_id"]
+        uid = str(json_data["_id"])
 
         return cls(score, in_progress, done, uid)
 
     @classmethod
     def dummy(cls):
         return cls(0, [], [], "")
+
+    def to_json(self):
+        json_data = {
+            "score": self._score,
+            "in_progress": self._in_progress,
+            "done": self._done,
+            "_id": self._id
+        }
+
+        return json_data

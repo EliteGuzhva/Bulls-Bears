@@ -21,11 +21,23 @@ class Lesson:
         index = json_data["index"]
         title = json_data["title"]
         description = json_data["description"]
-        data = json_data["data"]
-        uid = json_data["_id"]
+        data = str(json_data["data"])
+        uid = str(json_data["_id"])
 
         return cls(level_name, index, title, description, data, uid)
 
     @classmethod
     def dummy(cls):
         return cls("", -1, "", "", "", "")
+
+    def to_json(self):
+        json_data = {
+            "level_name": self._level_name,
+            "index": self._index,
+            "title": self._title,
+            "description": self._description,
+            "data": self._data,
+            "_id": self._id
+        }
+
+        return json_data

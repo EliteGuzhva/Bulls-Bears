@@ -23,3 +23,12 @@ class LessonSlide:
     @classmethod
     def dummy(cls):
         return cls("", [], -1)
+
+    def to_json(self):
+        json_data = {
+            "text": self._text,
+            "media": self._media,
+            "slide_number": self._slide_number
+        }
+
+        return json_data
