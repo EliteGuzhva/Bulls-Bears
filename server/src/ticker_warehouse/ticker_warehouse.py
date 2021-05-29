@@ -1,7 +1,7 @@
 import yfinance as yf
 from typing import List
 
-class ourTicker:
+class TickerWarehouse:
 
     _asset_info = {}
     _asset_history = {}
@@ -10,7 +10,6 @@ class ourTicker:
 
     _preimport = ["AAPL", "MSFT", "AMZN", "KO", "NKE"]
 
-    kek = []
     def __init__(self):
         self._import_start(self._preimport)
 
@@ -27,12 +26,14 @@ class ourTicker:
 
     def get_all_history(self):
         return self._asset_history
-#
 
 tick = ourTicker()
 
 k = tick.get_all_history()
 print(k)
+
+import os
+programPause = input("Press the <ENTER> key to continue...")
 # msft = yf.Ticker("MSFT")
 #
 # info = msft.info
