@@ -1,6 +1,7 @@
 from typing import List
 from ..model.user import User
 from ..model.lesson import Lesson
+from ..model.lesson_data import LessonData
 
 
 class IDatabase:
@@ -18,4 +19,7 @@ class IDatabase:
         raise NotImplementedError()
 
     def get_lessons_for_level(self, level_name: str) -> List[Lesson]:
+        raise NotImplementedError()
+
+    def get_lesson_data(self, uid: str) -> LessonData:
         raise NotImplementedError()

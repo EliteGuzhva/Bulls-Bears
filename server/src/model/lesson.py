@@ -3,7 +3,7 @@ class Lesson:
     _index: int = -1  # lesson index in a level
     _title: str = ""
     _description: str = ""
-    _data: str = "" # path to json???
+    _data: str = "" # id of lesson_data
     _id: str = ""
 
     def __init__(self, level_name: str, index: int, title: str,

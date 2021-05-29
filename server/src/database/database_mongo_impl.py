@@ -2,8 +2,9 @@ from typing import List
 from pymongo import MongoClient
 
 from .idatabase import IDatabase
-from ..model.lesson import Lesson
 from ..model.user import User
+from ..model.lesson import Lesson
+from ..model.lesson_data import LessonData
 
 
 class DatabaseMongoImpl(IDatabase):
@@ -14,6 +15,7 @@ class DatabaseMongoImpl(IDatabase):
         db = cluster["bulls-bears"]
         self._lessons_collection = db["lessons"]
         self._users_collection = db["users"]
+        self._data_collection = db["data"]
 
     def get_user(self, uid: str) -> User:
         result = self._users_collection.find_one({"_id": uid})
@@ -38,3 +40,8 @@ class DatabaseMongoImpl(IDatabase):
         results = self._lessons_collection.find({"level_name": level_name})
 
         return [Lesson.from_json(result) for result in results]
+
+    def get_lesson_data(self, uid: str) -> LessonData:
+        result = self._data_collection.find_one({"_id": uid})
+
+        return LessonData.from_json(result)
