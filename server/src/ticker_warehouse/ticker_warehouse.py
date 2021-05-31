@@ -1,11 +1,11 @@
 import yfinance as yf
 import pandas as pd
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 class TickerWarehouse:
 
     _ticker_info = {}
-    _ticker_history:Dict[str, pd.DataFrame] = {}
+    _ticker_history: Dict[str, pd.DataFrame] = {}
     _ticker_set = set()
 
 
@@ -14,7 +14,7 @@ class TickerWarehouse:
     def __init__(self):
         self._import_start(self._preimport)
 
-    def import_ticker(self, ticker_string:str):
+    def import_ticker(self, ticker_string: str):
         if ticker_string not in self._ticker_set:
             ticker = yf.Ticker(ticker_string)
             self._ticker_info[ticker_string] = ticker
@@ -26,11 +26,11 @@ class TickerWarehouse:
         for ticker_string in array_preimport:
             self.import_ticker(ticker_string)
 
-    def get_all_history(self):
+    def get_all_history(self) -> Dict[str, pd.DataFrame]:
         return self._ticker_history
 
-    def get_all_ticker_history(self, ticker_name: str):
+    def get_all_ticker_history(self, ticker_name: str) -> pd.DataFrame:
         return self._ticker_history[ticker_name]
 
-    def get_all_ticker_history_as_json(self, ticker_name:str):
+    def get_all_ticker_history_as_json(self, ticker_name: str) -> Optional[str]:
         return self.get_all_ticker_history(ticker_name).to_json(orient="index")
