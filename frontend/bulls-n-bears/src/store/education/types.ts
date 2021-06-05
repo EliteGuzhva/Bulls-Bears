@@ -22,9 +22,10 @@ export interface LessonForLevel {
   data: LessonData;
   title: string;
   description: string;
+  index: number;
 }
 
 export interface Level {
-  name: string;
+  levelName: string;
   lessons: LessonForLevel[];
 }

@@ -1,0 +1,29 @@
+import { Lesson, LessonForLevel, Level } from '../../../store/education';
+
+export const mapLessonToLessonForLevel = ({
+  _id: id,
+  data,
+  index,
+  description,
+  title,
+}: Lesson): LessonForLevel => ({
+  id,
+  data,
+  title,
+  description,
+  index,
+});
+
+export const getLevelFromLessons = (
+  levelName: string,
+  lessons: Lesson[]
+): Level => {
+  const lessonsForLevel = lessons
+    .filter((lesson) => lesson.level_name === levelName)
+    .sort((a, b) => a.index - b.index)
+    .map(mapLessonToLessonForLevel);
+  return {
+    levelName,
+    lessons: lessonsForLevel,
+  };
+};

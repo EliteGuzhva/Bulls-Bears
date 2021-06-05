@@ -3,15 +3,15 @@ import React from 'react';
 import { EducationLessonPreviewProps } from './EducationLessonPreview';
 import { EducationLessonPreviewRow } from './EducationLessonsPreviewRow';
 export interface EducationLevelProps {
-  level: number;
+  levelName: string;
   lessons: EducationLessonPreviewProps[];
 }
 export const EducationLevel: React.FunctionComponent<EducationLevelProps> = ({
-  level,
+  levelName,
   lessons,
 }) => (
   <Paper>
-    <Typography>{`Level ${level}`}</Typography>
+    <Typography>{`${levelName}`}</Typography>
     <EducationLessonPreviewRow lessons={lessons} />
   </Paper>
 );
