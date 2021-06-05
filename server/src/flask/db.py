@@ -56,6 +56,8 @@ def sandbox_init(user):
     virtual_start: str = str(request.form["virtual_start"])
     balance: float = float(request.form["balance"])
 
-    # db.sandbox_init(user.user_id, virtual_start, balance)
+    user = db.sandbox_init(user.user_id, virtual_start, balance)
+    if user is None:
+        return util.message_to_json("Couldn't initialize sandbox"), 401
 
-    return util.message_to_json("Sandbox Init")
+    return user.to_json()
