@@ -3,6 +3,7 @@ from typing import Optional
 from flask import Blueprint, g, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from . import util
 from .db import get_db
 from ..model.user import User
 
@@ -35,9 +36,9 @@ def register():
             error = 'Could not authorize user'
 
     if error is None:
-        return "Success", 201
+        return util.message_to_json("Success"), 201
     else:
-        return error, 418
+        return util.message_to_json(error), 418
 
 @bp.route('/login', methods=['POST'])
 def login():
@@ -63,9 +64,9 @@ def login():
     if error is None:
         session.clear()
         session['user_id'] = user.user_id
-        return "Success", 201
+        return util.message_to_json("Success"), 201
     else:
-        return error, 418
+        return util.message_to_json(error), 418
 
 @bp.before_app_request
 def load_logged_in_user():
@@ -80,4 +81,4 @@ def load_logged_in_user():
 def logout():
     session.clear()
 
-    return "Succes", 200
+    return util.message_to_json("Success"), 200
