@@ -15,7 +15,7 @@ def get_all_ticker_history():
     ticker: str = str(request.args.get("ticker"))
     json_data = tw.get_all_ticker_history_as_json(ticker)
     if json_data is None:
-        return "404: Not Found"
+        return "404: Ticker history not Found", 404
 
     return json_data
 

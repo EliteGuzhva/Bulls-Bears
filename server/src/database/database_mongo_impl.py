@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -19,8 +19,10 @@ class DatabaseMongoImpl(IDatabase):
         self._users_collection = db["users"]
         self._data_collection = db["data"]
 
-    def get_user(self, uid: str) -> User:
+    def get_user(self, uid: str) -> Optional[User]:
         result = self._users_collection.find_one(ObjectId(uid))
+        if result is None:
+            return None
 
         return User.from_json(result)
 
@@ -28,8 +30,10 @@ class DatabaseMongoImpl(IDatabase):
         # TODO
         return User.dummy()
 
-    def get_lesson(self, uid: str) -> Lesson:
+    def get_lesson(self, uid: str) -> Optional[Lesson]:
         result = self._lessons_collection.find_one(ObjectId(uid))
+        if result is None:
+            return None
 
         return Lesson.from_json(result)
 
@@ -43,7 +47,9 @@ class DatabaseMongoImpl(IDatabase):
 
         return [Lesson.from_json(result) for result in results]
 
-    def get_lesson_data(self, uid: str) -> LessonData:
+    def get_lesson_data(self, uid: str) -> Optional[LessonData]:
         result = self._data_collection.find_one(ObjectId(uid))
+        if result is None:
+            return None
 
         return LessonData.from_json(result)

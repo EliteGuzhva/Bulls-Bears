@@ -20,6 +20,9 @@ def get_all_lessons():
 def get_lesson():
     uid: str = str(request.args.get("uid"))
     lesson: Lesson = db.get_lesson(uid)
+    if lesson is None:
+        return "404: Lesson not found", 404
+
     json_data: dict = {"lesson": lesson.to_json()}
 
     return json_data
@@ -28,6 +31,9 @@ def get_lesson():
 def get_lesson_data():
     uid: str = str(request.args.get("uid"))
     lesson_data: LessonData = db.get_lesson_data(uid)
+    if lesson_data is None:
+        return "404: Lesson data not found", 404
+
     json_data: dict = {"lesson_data": lesson_data.to_json()}
 
     return json_data
