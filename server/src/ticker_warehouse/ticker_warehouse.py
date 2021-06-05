@@ -1,3 +1,6 @@
+import json
+import os
+
 import yfinance as yf
 import pandas as pd
 from typing import Dict, List, Optional
@@ -8,29 +11,41 @@ class TickerWarehouse:
     _ticker_history: Dict[str, pd.DataFrame] = {}
     _ticker_set = set()
 
-
-    _preimport = ["AAPL", "MSFT", "AMZN", "KO", "NKE"]
+    _load_file = "ticker_list.json"
 
     def __init__(self):
-        self._import_start(self._preimport)
+        self._import_start()
 
-    def import_ticker(self, ticker_string: str):
+    def _import_ticker(self, ticker_string: str):
         if ticker_string not in self._ticker_set:
             ticker = yf.Ticker(ticker_string)
+            # todo: can be deleted for speed
             self._ticker_info[ticker_string] = ticker
             self._ticker_history[ticker_string] = ticker.history(period="max", interval="1d")
             self._ticker_set.add(ticker_string)
 
+    # for initialization
+    def _import_start(self):
+        cur_dir = os.path.dirname(__file__)
+        file_open = os.path.join(cur_dir, self._load_file)
+        with open(file_open) as json_file:
+            json_data = json.load(json_file)
+            for ticker_string in json_data["Tickers"]:
+                self._import_ticker(ticker_string)
 
-    def _import_start(self, array_preimport: List):
-        for ticker_string in array_preimport:
-            self.import_ticker(ticker_string)
+    # tickers set
+    def get_tickers_set(self) -> set:
+        return self._ticker_set
 
+    # get dictionary of all tickers str->DataFrame
     def get_all_history(self) -> Dict[str, pd.DataFrame]:
         return self._ticker_history
 
-    def get_all_ticker_history(self, ticker_name: str) -> pd.DataFrame:
+    def get_ticker_history(self, ticker_name: str) -> pd.DataFrame:
         return self._ticker_history[ticker_name]
 
-    def get_all_ticker_history_as_json(self, ticker_name: str) -> Optional[str]:
-        return self.get_all_ticker_history(ticker_name).to_json(orient="index")
+    def get_ticker_history_as_json(self, ticker_name: str) -> Optional[str]:
+        if(ticker_name not in self._ticker_set):
+            #todo: log
+            return None
+        return self.get_ticker_history(ticker_name).to_json(orient="index")
