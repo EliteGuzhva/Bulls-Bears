@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import os
 
@@ -41,11 +42,31 @@ class TickerWarehouse:
     def get_all_history(self) -> Dict[str, pd.DataFrame]:
         return self._ticker_history
 
-    def get_ticker_history(self, ticker_name: str) -> pd.DataFrame:
+    def get_ticker_history(self, ticker_name: str) -> Optional[pd.DataFrame]:
+        if(ticker_name not in self._ticker_set):
+            #todo: log
+            return None
         return self._ticker_history[ticker_name]
+
+    def get_ticker_history_in_range_df(self, ticker_name: str, start, finish, is_timestamp: bool = True) -> Optional[pd.DataFrame]:
+        datetime_start = start
+        datetime_finish = finish
+
+        if is_timestamp:
+            datetime_start = datetime.fromtimestamp(start)
+            datetime_finish = datetime.fromtimestamp(finish)
+
+        retval_df = self._ticker_history[ticker_name].loc[datetime_start:datetime_finish]
+        return retval_df
 
     def get_ticker_history_as_json(self, ticker_name: str) -> Optional[str]:
         if(ticker_name not in self._ticker_set):
             #todo: log
             return None
         return self.get_ticker_history(ticker_name).to_json(orient="index")
+
+    def get_ticker_history_in_range_json(self, ticker_name: str, start, finish, is_timestamp: bool = True) -> Optional[str]:
+        df_ans = self.get_ticker_history_in_range_df(ticker_name, start, finish, is_timestamp)
+        if(df_ans is None):
+            return None
+        return df_ans.to_json(orient="index")

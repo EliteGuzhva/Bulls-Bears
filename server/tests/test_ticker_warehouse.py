@@ -1,29 +1,37 @@
 import unittest
 import json
+from datetime import datetime
+
 from src.ticker_warehouse.ticker_warehouse import TickerWarehouse
 
-# def test_ticker_warehouse():
-#     test_ticker_warehouse = TickerWarehouse()
-#
-#     test_ticker_warehouse.import_ticker("AAPL")
-#     df_apple_data = test_ticker_warehouse.get_ticker_history("AAPL")
-#     print(df_apple_data)
-#
-#     json_apple_data = test_ticker_warehouse.get_ticker_history_as_json("AAPL")
-#     print(json_apple_data)
-#
-#     assert json_apple_data != None
-#
-#     parsed_json = json.loads(json_apple_data)
-#     json.dumps(parsed_json, indent=4)
 
-# def test_get_invalid_ticker():
-#     test_ticker_warehouse = TickerWarehouse()
-#
-#     test_ticker_warehouse.import_ticker("AAAAAAAA")
+def test_ticker_warehouse():
+    test_instance_ticker_warehouse = TickerWarehouse()
+
+    df_apple_data = test_instance_ticker_warehouse.get_ticker_history("AAPL")
+
+    assert df_apple_data is not None
 
 
-def test_open_json():
+def test_ticker_warehouse_range():
+    test_ticker_warehouse = TickerWarehouse()
+
+    apple_data_in_range_df = test_ticker_warehouse.get_ticker_history_in_range_df("AAPL", 345427200, 346427200)
+    apple_data_in_range_json = test_ticker_warehouse.get_ticker_history_in_range_json("AAPL", 345427200, 346427200)
+
+    parsed_apple_data_in_range_json = json.loads(apple_data_in_range_json)
+
+    print("DF:\n", apple_data_in_range_df)
+    print("JSON:\n", json.dumps(parsed_apple_data_in_range_json, indent=4))
+
+
+def test_get_invalid_ticker():
+    test_instance_ticker_warehouse = TickerWarehouse()
+    test_none = test_instance_ticker_warehouse.get_ticker_history("AAAAAAAAAA")
+    assert test_none is None
+
+
+def test_get_tickers_set():
     test_ticker_warehouse = TickerWarehouse()
     print(test_ticker_warehouse.get_tickers_set())
 
