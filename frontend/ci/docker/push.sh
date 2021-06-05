@@ -1,5 +1,5 @@
 #!/bin/sh
 
-. .env
+. ./.env
 
 docker push ${HUB_USER}/${REPO_NAME}:${TAG}

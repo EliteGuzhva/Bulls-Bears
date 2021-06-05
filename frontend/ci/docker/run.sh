@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. .env
+. ./.env
 
 docker run \
     --rm -it \
