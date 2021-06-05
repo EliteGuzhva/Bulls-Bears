@@ -8,23 +8,34 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { LessonDataId } from '../../store/education';
 
 export interface EducationLessonPreviewProps {
+  id: string;
   title: string;
   description: string;
   media?: string;
+  data: LessonDataId;
 }
 
 export const EducationLessonPreview: React.FunctionComponent<EducationLessonPreviewProps> = ({
   title,
   description,
   media,
+  id,
+  data,
 }) => {
   const classes = useStyles();
+  let { url } = useRouteMatch();
+  let history = useHistory();
+  const handleLessonClick = useCallback(() => {
+    history.push(`${url}/${data}`);
+  }, [history, data]);
   return (
     <Card>
-      <CardActionArea>
+      <CardActionArea onClick={handleLessonClick}>
         <CardMedia className={classes.media} image={media} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -47,5 +58,6 @@ export const EducationLessonPreview: React.FunctionComponent<EducationLessonPrev
 const useStyles = makeStyles({
   media: {
     height: '100px',
+    width: '200px',
   },
 });

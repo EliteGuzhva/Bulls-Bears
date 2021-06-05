@@ -4,25 +4,20 @@ import { Lesson, State } from './types';
 import { Action, EducationActionType } from './action-types';
 
 export const education = (
-  state: State = { lessons: [] },
+  state: State = { lessons: [], lessonsData: [] },
   action: Action
 ): State => {
   switch (action.type) {
     case EducationActionType.SetLessons:
       return {
+        ...state,
         lessons: action.lessons,
       };
-    // case EducationActionType.SetLessonData:
-    //   const { lessonId, data } = action;
-    //   const lesson = state.lessons.find((l) => l.id === lessonId);
-    //   const lessonWithData = { ...lesson, data };
-    //   return {
-    //     ...state,
-    //     lessons: [
-    //       ...state.lessons.filter(({ id }) => id !== lessonId),
-    //       lessonWithData,
-    //     ],
-    //   };
+    case EducationActionType.SetLessonData:
+      return {
+        ...state,
+        lessonsData: [...state.lessonsData, action.data],
+      };
     default:
       return state;
   }

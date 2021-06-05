@@ -12,7 +12,6 @@ export interface SetLessons {
 
 export interface SetLessonData {
   type: EducationActionType.SetLessonData;
-  lessonId: number;
   data: LessonData;
 }
 

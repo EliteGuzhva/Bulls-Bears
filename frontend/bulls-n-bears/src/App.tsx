@@ -6,9 +6,10 @@ import { Typography } from '@material-ui/core';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { HomePage } from './Components/HomePage';
 import { NavigationBar } from './Components/NavigationBar';
-import { EducationPage, testProps } from './Components/Education/EducationPage';
+import { EducationPage } from './Components/Education/EducationPage';
 import { Provider } from 'react-redux';
 import store from './store';
+import { EducationLesson } from './Components/Education/EducationLesson';
 function App() {
   return (
     <Provider store={store}>
@@ -20,8 +21,11 @@ function App() {
               <Route path="/home">
                 <HomePage />
               </Route>
-              <Route path="/education">
-                <EducationPage {...testProps} />
+              <Route exact path="/education">
+                <EducationPage />
+              </Route>
+              <Route path="/education/:lessonDataId">
+                <EducationLesson />
               </Route>
             </Switch>
             {/* <Typography variant="h1">Bulls and Bears</Typography> */}

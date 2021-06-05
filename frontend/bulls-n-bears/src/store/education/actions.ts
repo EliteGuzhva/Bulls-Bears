@@ -1,7 +1,14 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { GetAllLessonsResponse, Lesson, LessonData } from './types';
+import {
+  GetAllLessonsResponse,
+  GetLessonDataResponse,
+  Lesson,
+  LessonData,
+  LessonDataId,
+} from './types';
 import { EducationActionType, SetLessonData, SetLessons } from './action-types';
+import { mapResponseSlideToSlide } from '../../selectors/education/utils/map-response-slide-to-slide';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -10,12 +17,8 @@ export const setLessons = (lessons: Lesson[]): SetLessons => ({
   lessons,
 });
 
-export const setLessonData = (
-  lessonId: number,
-  data: LessonData
-): SetLessonData => ({
+export const setLessonData = (data: LessonData): SetLessonData => ({
   type: EducationActionType.SetLessonData,
-  lessonId,
   data,
 });
 
@@ -32,3 +35,15 @@ export const getAllLessons = (): ThunkAction<
 };
 
 // some action fetching data
+export const getLessonData = (
+  lessonDataId: LessonDataId
+): ThunkAction<Promise<void>, {}, {}, AnyAction> => async (dispatch) => {
+  const response = await fetch(
+    `${API_URL}/get_lesson_data?uid=${lessonDataId}`
+  );
+  const responseJson: GetLessonDataResponse = await response.json();
+  const {
+    lesson_data: { _id: id, slides },
+  } = responseJson;
+  dispatch(setLessonData({ id, slides: slides.map(mapResponseSlideToSlide) }));
+};

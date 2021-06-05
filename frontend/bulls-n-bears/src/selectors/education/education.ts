@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { LessonForLevel, Level } from '../../store/education';
+import { LessonDataId, Level } from '../../store/education';
 import { RootState } from '../../store/types';
 import { getLevelFromLessons } from './utils/get-level-from-lessons';
 
@@ -24,3 +24,10 @@ export const getLevels = createSelector(
       []
     )
 );
+
+export const getLessonDataByLessonDataId = (
+  state: RootState,
+  lessonDataId: LessonDataId
+) => {
+  return state.education.lessonsData.find((ld) => ld.id === lessonDataId);
+};

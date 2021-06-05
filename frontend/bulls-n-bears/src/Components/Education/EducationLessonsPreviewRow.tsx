@@ -15,7 +15,7 @@ export const EducationLessonPreviewRow: React.FunctionComponent<EducationLessonP
   return (
     <div className={classes.row}>
       {props.lessons.map((lesson) => (
-        <EducationLessonPreview {...lesson} />
+        <EducationLessonPreview key={lesson.id} {...lesson} />
       ))}
     </div>
   );

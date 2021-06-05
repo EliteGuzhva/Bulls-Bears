@@ -1,13 +1,13 @@
 export interface Lesson {
-  _id: number;
-  data: LessonData;
+  _id: string;
+  data: LessonDataId;
   index: number;
   title: string;
   description: string;
   level_name: string;
 }
 
-export type LessonData = string;
+export type LessonDataId = string;
 
 export interface GetAllLessonsResponse {
   lessons: Lesson[];
@@ -15,11 +15,12 @@ export interface GetAllLessonsResponse {
 
 export interface State {
   lessons: Lesson[];
+  lessonsData: LessonData[];
 }
 
 export interface LessonForLevel {
-  id: number;
-  data: LessonData;
+  id: string;
+  data: LessonDataId;
   title: string;
   description: string;
   index: number;
@@ -28,4 +29,27 @@ export interface LessonForLevel {
 export interface Level {
   levelName: string;
   lessons: LessonForLevel[];
+}
+
+export interface LessonDataSlide {
+  media: string[];
+  slideNumber: number;
+  text: string;
+}
+
+export interface LessonDataSlideResponse {
+  media: string[];
+  slide_number: number;
+  text: string;
+}
+export interface LessonData {
+  id: string;
+  slides: LessonDataSlide[];
+}
+
+export interface GetLessonDataResponse {
+  lesson_data: {
+    _id: string;
+    slides: LessonDataSlideResponse[];
+  };
 }
