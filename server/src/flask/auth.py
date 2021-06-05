@@ -8,7 +8,7 @@ from ..model.user import User
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-@bp.route('/register', methods=('POST'))
+@bp.route('/register', methods=['POST'])
 def register():
     username = request.form['username']
     email = request.form['email']
@@ -39,7 +39,7 @@ def register():
     else:
         return error, 418
 
-@bp.route('/login', methods=('POST'))
+@bp.route('/login', methods=['POST'])
 def login():
     username = request.form['username']
     password = request.form['password']
@@ -79,4 +79,5 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
+
     return "Succes", 200

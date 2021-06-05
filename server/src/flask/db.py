@@ -26,7 +26,7 @@ def get_all_lessons():
 def get_lesson():
     db = get_db()
     uid: str = str(request.args.get("uid"))
-    lesson: Lesson = db.get_lesson(uid)
+    lesson = db.get_lesson(uid)
     if lesson is None:
         return "404: Lesson not found", 404
 
@@ -38,7 +38,7 @@ def get_lesson():
 def get_lesson_data():
     db = get_db()
     uid: str = str(request.args.get("uid"))
-    lesson_data: LessonData = db.get_lesson_data(uid)
+    lesson_data = db.get_lesson_data(uid)
     if lesson_data is None:
         return "404: Lesson data not found", 404
 
@@ -46,7 +46,7 @@ def get_lesson_data():
 
     return json_data
 
-@bp.route('/sandbox_init', methods=('POST'))
+@bp.route('/sandbox_init', methods=['POST'])
 def sandbox_init():
     db = get_db()
     user_token: str = str(request.form["user_token"])

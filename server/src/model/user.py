@@ -10,8 +10,8 @@ class User:
     _password: str = ""
     _id: str = ""
     _token: str = ""
-    _edu_data: Optional[EduData] = None
-    _sandbox_data: Optional[SandboxData] = None
+    _edu_data: EduData = EduData.dummy()
+    _sandbox_data: SandboxData = SandboxData.dummy()
 
     def __init__(self, username: str, email: str, password: str, uid: str, token: str,
                  edu_data: Optional[EduData], sandbox_data: Optional[SandboxData]):
@@ -20,8 +20,10 @@ class User:
         self._password = password
         self._id = uid
         self._token = token
-        self._edu_data = edu_data
-        self._sandbox_data = sandbox_data
+        if edu_data is not None:
+            self._edu_data = edu_data
+        if sandbox_data is not None:
+            self._sandbox_data = sandbox_data
 
     @property
     def password_hash(self):

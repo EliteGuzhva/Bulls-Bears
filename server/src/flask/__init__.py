@@ -5,6 +5,7 @@ from . import db, fin, auth
 
 def create_app():
     app = Flask(__name__)
+    app.secret_key = 'Bulls&Bears'
 
     @app.route('/')
     def hello_world():
