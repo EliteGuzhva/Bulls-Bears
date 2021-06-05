@@ -14,7 +14,7 @@ def get_available_tickers():
 @bp.route('/get_all_ticker_history')
 def get_all_ticker_history():
     ticker: str = str(request.args.get("ticker"))
-    json_data = tw.get_all_ticker_history_as_json(ticker)
+    json_data = tw.get_ticker_history_as_json(ticker)
     if json_data is None:
         return util.message_to_json("Ticker history not Found"), 404
 
