@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 
 from . import db, fin, auth
@@ -5,7 +6,11 @@ from . import db, fin, auth
 
 def create_app():
     app = Flask(__name__)
-    app.secret_key = 'Bulls&Bears'
+
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    if SECRET_KEY is None:
+        raise RuntimeError("No SECRET_KEY")
+    app.secret_key = SECRET_KEY
 
     @app.route('/')
     def hello_world():

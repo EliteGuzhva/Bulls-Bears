@@ -5,6 +5,7 @@ from ..model.lesson_data import LessonData
 
 
 class IDatabase:
+    # auth
     def get_user(self, uid: str) -> Optional[User]:
         raise NotImplementedError()
 
@@ -15,6 +16,7 @@ class IDatabase:
                        email: str, password: str) -> Optional[User]:
         raise NotImplementedError()
 
+    # education
     def get_lesson(self, uid: str) -> Optional[Lesson]:
         raise NotImplementedError()
 
@@ -25,4 +27,8 @@ class IDatabase:
         raise NotImplementedError()
 
     def get_lesson_data(self, uid: str) -> Optional[LessonData]:
+        raise NotImplementedError()
+
+    # sandbox
+    def sandbox_init(self, user_id: str, virtual_start: str, balance: float) -> Optional[User]:
         raise NotImplementedError()

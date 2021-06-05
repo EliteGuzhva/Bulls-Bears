@@ -7,6 +7,7 @@ from ..model.lesson_data import LessonData
 
 
 class DatabaseDummyImpl(IDatabase):
+    # auth
     def get_user(self, uid: str) -> Optional[User]:
         print("get_user")
 
@@ -22,6 +23,7 @@ class DatabaseDummyImpl(IDatabase):
 
         return User.dummy()
 
+    # education
     def get_lesson(self, uid: str) -> Optional[Lesson]:
         print("get_lesson")
 
@@ -41,3 +43,9 @@ class DatabaseDummyImpl(IDatabase):
         print ("get_lesson_data")
 
         return LessonData.dummy()
+
+    # sandbox
+    def sandbox_init(self, user_id: str, virtual_start: str, balance: float) -> Optional[User]:
+        print("sandbox_init")
+
+        return self.get_user(user_id)

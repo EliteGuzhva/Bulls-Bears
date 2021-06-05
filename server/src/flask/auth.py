@@ -1,13 +1,42 @@
+import os
 from typing import Optional
 
 from flask import Blueprint, g, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
+from functools import wraps
+import jwt
+import datetime
 
 from . import util
-from .db import get_db
+from .db import *
 from ..model.user import User
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+def token_required(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        token = None
+
+        if 'x-access-tokens' in request.headers:
+            token = request.headers['x-access-tokens']
+
+        if not token:
+            return util.message_to_json("No valid token")
+
+        try:
+            SECRET_KEY = os.environ.get('SECRET_KEY')
+            if SECRET_KEY is None:
+                return util.message_to_json("No SECRET_KEY")
+
+            data = jwt.decode(token, SECRET_KEY)
+            user = get_db().get_user(data['user_id'])
+        except:
+            return util.message_to_json("Token is invalid")
+
+        return f(user, *args, **kwargs)
+
+    return decorator
 
 @bp.route('/register', methods=['POST'])
 def register():
@@ -64,7 +93,16 @@ def login():
     if error is None:
         session.clear()
         session['user_id'] = user.user_id
-        return util.message_to_json("Success"), 201
+
+        SECRET_KEY = os.environ.get('SECRET_KEY')
+        if SECRET_KEY is None:
+            return util.message_to_json("No SECRET_KEY")
+
+        token = jwt.encode({'user_id': user.user_id,
+                            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
+                           SECRET_KEY)
+
+        return {'token': token.decode('UTF-8')}
     else:
         return util.message_to_json(error), 418
 
@@ -81,4 +119,4 @@ def load_logged_in_user():
 def logout():
     session.clear()
 
-    return util.message_to_json("Success"), 200
+    return util.message_to_json("Success")

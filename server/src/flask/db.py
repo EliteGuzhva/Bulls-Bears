@@ -3,6 +3,7 @@ from typing import List
 from flask import Blueprint, request, g
 
 from . import util
+from .auth import *
 from ..database.database_factory import *
 from ..model.lesson import Lesson
 from ..model.lesson_data import LessonData
@@ -23,6 +24,7 @@ def get_all_lessons():
 
     return json_data
 
+# TODO: require token
 @bp.route('/get_lesson')
 def get_lesson():
     db = get_db()
@@ -48,12 +50,12 @@ def get_lesson_data():
     return json_data
 
 @bp.route('/sandbox_init', methods=['POST'])
-def sandbox_init():
+@token_required
+def sandbox_init(user):
     db = get_db()
-    user_token: str = str(request.form["user_token"])
     virtual_start: str = str(request.form["virtual_start"])
     balance: float = float(request.form["balance"])
 
-    # db.sandbox_init(user_token, virtual_start, balance)
+    # db.sandbox_init(user.user_id, virtual_start, balance)
 
-    return util.message_to_json("Sandbox Init"), 201
+    return util.message_to_json("Sandbox Init")

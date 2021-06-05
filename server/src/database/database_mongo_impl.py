@@ -19,6 +19,7 @@ class DatabaseMongoImpl(IDatabase):
         self._users_collection = db["users"]
         self._data_collection = db["data"]
 
+    # auth
     def get_user(self, uid: str) -> Optional[User]:
         result = self._users_collection.find_one(ObjectId(uid))
         if result is None:
@@ -40,6 +41,7 @@ class DatabaseMongoImpl(IDatabase):
 
         return user
 
+    # education
     def get_lesson(self, uid: str) -> Optional[Lesson]:
         result = self._lessons_collection.find_one(ObjectId(uid))
         if result is None:
@@ -63,3 +65,15 @@ class DatabaseMongoImpl(IDatabase):
             return None
 
         return LessonData.from_json(result)
+
+    # sandbox
+    def sandbox_init(self, user_id: str, virtual_start: str, balance: float) -> Optional[User]:
+        self._users_collection.update_one({'_id': user_id},
+                                          {'$set': {
+                                              'sandbox_data.virtual_start': virtual_start,
+                                              'sandbox_data.virtual_current': virtual_start,
+                                              'sandbox_data.balance': balance,
+                                              'sandbox_data.assets': []
+                                          }}, upsert=False)
+
+        return self.get_user(user_id)
