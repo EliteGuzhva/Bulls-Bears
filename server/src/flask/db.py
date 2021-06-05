@@ -2,6 +2,7 @@ from typing import List
 
 from flask import Blueprint, request, g
 
+from . import util
 from ..database.database_factory import *
 from ..model.lesson import Lesson
 from ..model.lesson_data import LessonData
@@ -28,7 +29,7 @@ def get_lesson():
     uid: str = str(request.args.get("uid"))
     lesson = db.get_lesson(uid)
     if lesson is None:
-        return "404: Lesson not found", 404
+        return util.message_to_json("Lesson not found"), 404
 
     json_data: dict = {"lesson": lesson.to_json()}
 
@@ -40,7 +41,7 @@ def get_lesson_data():
     uid: str = str(request.args.get("uid"))
     lesson_data = db.get_lesson_data(uid)
     if lesson_data is None:
-        return "404: Lesson data not found", 404
+        return util.message_to_json("Lesson data not found"), 404
 
     json_data: dict = {"lesson_data": lesson_data.to_json()}
 
@@ -55,4 +56,4 @@ def sandbox_init():
 
     # db.sandbox_init(user_token, virtual_start, balance)
 
-    return "Sandbox Init", 201
+    return util.message_to_json("Sandbox Init"), 201

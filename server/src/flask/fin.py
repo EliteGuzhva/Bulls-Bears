@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 
+from . import util
 from ..ticker_warehouse.ticker_warehouse import TickerWarehouse
 
 bp = Blueprint('fin', __name__, url_prefix='/fin')
@@ -15,7 +16,7 @@ def get_all_ticker_history():
     ticker: str = str(request.args.get("ticker"))
     json_data = tw.get_all_ticker_history_as_json(ticker)
     if json_data is None:
-        return "404: Ticker history not Found", 404
+        return util.message_to_json("Ticker history not Found"), 404
 
     return json_data
 
