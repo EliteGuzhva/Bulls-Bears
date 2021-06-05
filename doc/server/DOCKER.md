@@ -5,6 +5,10 @@
 cd server/ci/docker
 ./run.sh
 ```
+или
+```bash
+docker run --rm -t -p 5000:5000 elit3guzhva/bulls-bears-server:0.0.3
+```
 
 ## Сборка докер-образа вручную
 ```bash
