@@ -15,6 +15,9 @@ class EduData:
 
     @classmethod
     def from_json(cls, json_data):
+        if json_data is None:
+            return None
+
         score = json_data["score"]
         in_progress = json_data["in_progress"]
         done = json_data["done"]

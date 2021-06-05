@@ -17,6 +17,9 @@ class SandboxData:
 
     @classmethod
     def from_json(cls, json_data):
+        if json_data is None:
+            return None
+
         virtual_start = json_data["virtual_start"]
         virtual_current = json_data["virtual_current"]
         balance = json_data["balance"]

@@ -26,9 +26,19 @@ class DatabaseMongoImpl(IDatabase):
 
         return User.from_json(result)
 
-    def authorize_user(self, login: str, name: str, surname: str, email: str, password: str, photo_url: str) -> User:
-        # TODO
-        return User.dummy()
+    def get_user_with_username(self, username: str) -> Optional[User]:
+        result = self._users_collection.find_one({"username": username})
+        if result is None:
+            return None
+
+        return User.from_json(result)
+
+    def authorize_user(self, username: str, email: str, password: str) -> Optional[User]:
+        user = User(username, email, password, "", "", None, None)
+        inserted_user = self._users_collection.insert_one(user.to_json())
+        user.set_user_id(str(inserted_user.inserted_id))
+
+        return user
 
     def get_lesson(self, uid: str) -> Optional[Lesson]:
         result = self._lessons_collection.find_one(ObjectId(uid))
