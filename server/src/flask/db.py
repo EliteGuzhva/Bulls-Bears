@@ -2,11 +2,8 @@ from typing import List
 
 from flask import Blueprint, request, g
 
-from . import util
-from .auth import *
+from . import util, auth
 from ..database.database_factory import *
-from ..model.lesson import Lesson
-from ..model.lesson_data import LessonData
 
 bp = Blueprint('db', __name__, url_prefix='/db')
 
@@ -19,7 +16,7 @@ def get_db():
 @bp.route('/get_all_lessons')
 def get_all_lessons():
     db = get_db()
-    lessons: List[Lesson] = db.get_all_lessons()
+    lessons = db.get_all_lessons()
     json_data: dict = {"lessons": [l.to_json() for l in lessons]}
 
     return json_data
@@ -50,7 +47,7 @@ def get_lesson_data():
     return json_data
 
 @bp.route('/sandbox_init', methods=['POST'])
-@token_required
+@auth.token_required
 def sandbox_init(user):
     db = get_db()
     virtual_start: str = str(request.form["virtual_start"])
@@ -60,4 +57,4 @@ def sandbox_init(user):
     if user is None:
         return util.message_to_json("Couldn't initialize sandbox"), 401
 
-    return user.to_json()
+    return user.to_json(), 201

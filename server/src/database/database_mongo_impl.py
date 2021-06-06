@@ -68,7 +68,7 @@ class DatabaseMongoImpl(IDatabase):
 
     # sandbox
     def sandbox_init(self, user_id: str, virtual_start: str, balance: float) -> Optional[User]:
-        self._users_collection.update_one({'_id': user_id},
+        self._users_collection.update_one({'_id': ObjectId(user_id)},
                                           {'$set': {
                                               'sandbox_data.virtual_start': virtual_start,
                                               'sandbox_data.virtual_current': virtual_start,

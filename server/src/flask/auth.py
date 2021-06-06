@@ -8,7 +8,7 @@ import jwt
 import datetime
 
 from . import util
-from .db import *
+from . import db as database
 from ..model.user import User
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -29,8 +29,9 @@ def token_required(f):
             if SECRET_KEY is None:
                 return util.message_to_json("No SECRET_KEY")
 
-            data = jwt.decode(token, SECRET_KEY)
-            user = get_db().get_user(data['user_id'])
+            # TODO: check data['exp']
+            data = jwt.decode(token, SECRET_KEY, algorithms="HS256")
+            user = database.get_db().get_user(data['user_id'])
         except:
             return util.message_to_json("Token is invalid")
 
@@ -44,7 +45,7 @@ def register():
     email = request.form['email']
     password = request.form['password']
 
-    db = get_db()
+    db = database.get_db()
     error: Optional[str] = None
 
     if not username:
@@ -74,7 +75,7 @@ def login():
     username = request.form['username']
     password = request.form['password']
 
-    db = get_db()
+    db = database.get_db()
     error: Optional[str] = None
 
     if not username:
@@ -100,9 +101,17 @@ def login():
 
         token = jwt.encode({'user_id': user.user_id,
                             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
-                           SECRET_KEY)
+                           SECRET_KEY, algorithm="HS256")
 
-        return {'token': token.decode('UTF-8')}
+        token_str: str = ""
+        if isinstance(token, bytes):
+            token_str = token.decode('UTF-8')
+        elif isinstance(token, str):
+            token_str = token
+        else:
+            return util.message_to_json("Couldn't generate token"), 418
+
+        return {'token': token_str}
     else:
         return util.message_to_json(error), 418
 
@@ -113,7 +122,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().get_user(user_id)
+        g.user = database.get_db().get_user(user_id)
 
 @bp.route('/logout')
 def logout():
