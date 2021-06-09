@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -19,17 +19,33 @@ class DatabaseMongoImpl(IDatabase):
         self._users_collection = db["users"]
         self._data_collection = db["data"]
 
-    def get_user(self, uid: str) -> User:
+    # auth
+    def get_user(self, uid: str) -> Optional[User]:
         result = self._users_collection.find_one(ObjectId(uid))
+        if result is None:
+            return None
 
         return User.from_json(result)
 
-    def authorize_user(self, login: str, name: str, surname: str, email: str, password: str, photo_url: str) -> User:
-        # TODO
-        return User.dummy()
+    def get_user_with_username(self, username: str) -> Optional[User]:
+        result = self._users_collection.find_one({"username": username})
+        if result is None:
+            return None
 
-    def get_lesson(self, uid: str) -> Lesson:
+        return User.from_json(result)
+
+    def authorize_user(self, username: str, email: str, password: str) -> Optional[User]:
+        user = User(username, email, password, "", "", None, None)
+        inserted_user = self._users_collection.insert_one(user.to_json())
+        user.set_user_id(str(inserted_user.inserted_id))
+
+        return user
+
+    # education
+    def get_lesson(self, uid: str) -> Optional[Lesson]:
         result = self._lessons_collection.find_one(ObjectId(uid))
+        if result is None:
+            return None
 
         return Lesson.from_json(result)
 
@@ -43,7 +59,21 @@ class DatabaseMongoImpl(IDatabase):
 
         return [Lesson.from_json(result) for result in results]
 
-    def get_lesson_data(self, uid: str) -> LessonData:
+    def get_lesson_data(self, uid: str) -> Optional[LessonData]:
         result = self._data_collection.find_one(ObjectId(uid))
+        if result is None:
+            return None
 
         return LessonData.from_json(result)
+
+    # sandbox
+    def sandbox_init(self, user_id: str, virtual_start: str, balance: float) -> Optional[User]:
+        self._users_collection.update_one({'_id': ObjectId(user_id)},
+                                          {'$set': {
+                                              'sandbox_data.virtual_start': virtual_start,
+                                              'sandbox_data.virtual_current': virtual_start,
+                                              'sandbox_data.balance': balance,
+                                              'sandbox_data.assets': []
+                                          }}, upsert=False)
+
+        return self.get_user(user_id)

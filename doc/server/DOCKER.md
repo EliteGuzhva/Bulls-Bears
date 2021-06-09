@@ -5,6 +5,14 @@
 cd server/ci/docker
 ./run.sh
 ```
+или
+```bash
+docker run \
+    --rm -t \
+    -p 5000:5000 \
+    -e SECRET_KEY="Bulls&Bears" \
+    elit3guzhva/bulls-bears-server:0.0.6
+```
 
 ## Сборка докер-образа вручную
 ```bash
