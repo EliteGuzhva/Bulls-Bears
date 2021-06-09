@@ -32,3 +32,8 @@ class IDatabase:
     # sandbox
     def sandbox_init(self, user_id: str, virtual_start: str, balance: float) -> Optional[User]:
         raise NotImplementedError()
+
+    def sandbox_step(self, user_id: str, virtual_current: str) -> Optional[User]:
+        raise NotImplementedError()
+
+    # TODO: implement `sandbox_transaction`

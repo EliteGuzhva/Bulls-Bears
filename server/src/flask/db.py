@@ -1,5 +1,3 @@
-from typing import List
-
 from flask import Blueprint, request, g
 
 from . import util, auth
@@ -56,5 +54,17 @@ def sandbox_init(user):
     user = db.sandbox_init(user.user_id, virtual_start, balance)
     if user is None:
         return util.message_to_json("Couldn't initialize sandbox"), 401
+
+    return user.to_json(), 201
+
+@bp.route('/sandbox_step', methods=['POST'])
+@auth.token_required
+def sandbox_step(user):
+    db = get_db()
+    virtual_current: str = str(request.form["virtual_curent"])
+
+    user = db.sandbox_step(user.user_id, virtual_current)
+    if user is None:
+        return util.message_to_json("Couldn't perform step in sandbox"), 401
 
     return user.to_json(), 201

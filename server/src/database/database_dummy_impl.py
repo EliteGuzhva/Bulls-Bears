@@ -49,3 +49,8 @@ class DatabaseDummyImpl(IDatabase):
         print("sandbox_init")
 
         return self.get_user(user_id)
+
+    def sandbox_step(self, user_id: str, virtual_current: str) -> Optional[User]:
+        print("sandbox_step")
+
+        return self.get_user(user_id)

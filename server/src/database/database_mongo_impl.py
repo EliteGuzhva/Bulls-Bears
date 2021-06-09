@@ -77,3 +77,11 @@ class DatabaseMongoImpl(IDatabase):
                                           }}, upsert=False)
 
         return self.get_user(user_id)
+
+    def sandbox_step(self, user_id: str, virtual_current: str) -> Optional[User]:
+        self._users_collection.update_one({'_id': ObjectId(user_id)},
+                                          {'$set': {
+                                              'sandbox_data.virtual_current': virtual_current,
+                                          }}, upsert=False)
+
+        return self.get_user(user_id)
