@@ -54,3 +54,9 @@ class DatabaseDummyImpl(IDatabase):
         print("sandbox_step")
 
         return self.get_user(user_id)
+
+    def sandbox_transaction(self, user_id: str, ticker: str, price: float, amount: int,
+                            operation_type: str) -> Optional[User]:
+        print("sandbox_transaction")
+
+        return self.get_user(user_id)

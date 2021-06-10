@@ -36,4 +36,6 @@ class IDatabase:
     def sandbox_step(self, user_id: str, virtual_current: str) -> Optional[User]:
         raise NotImplementedError()
 
-    # TODO: implement `sandbox_transaction`
+    def sandbox_transaction(self, user_id: str, ticker: str, price: float, amount: int,
+                            operation_type: str) -> Optional[User]:
+        raise NotImplementedError()

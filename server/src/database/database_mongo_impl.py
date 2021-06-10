@@ -7,6 +7,7 @@ from .idatabase import IDatabase
 from ..model.user import User
 from ..model.lesson import Lesson
 from ..model.lesson_data import LessonData
+from ..model.transaction import Transaction, OperationType
 
 
 class DatabaseMongoImpl(IDatabase):
@@ -83,5 +84,26 @@ class DatabaseMongoImpl(IDatabase):
                                           {'$set': {
                                               'sandbox_data.virtual_current': virtual_current,
                                           }}, upsert=False)
+
+        return self.get_user(user_id)
+
+    def sandbox_transaction(self, user_id: str, ticker: str, price: float, amount: int,
+                            operation_type: str) -> Optional[User]:
+        user = self.get_user(user_id)
+        if user is None:
+            return None
+
+        sandbox_data = user.sandbox_data
+
+        commission = 0.0  # WARNING! HARDCODE
+        transaction = Transaction(amount, price, commission, sandbox_data.virtual_current, OperationType.from_string(operation_type))
+
+        did_apply = sandbox_data.apply_transaction(ticker, transaction)
+
+        if did_apply:
+            self._users_collection.update_one({'_id': ObjectId(user_id)},
+                                              {'$set': {
+                                                  'sandbox_data': sandbox_data.to_json(),
+                                              }}, upsert=False)
 
         return self.get_user(user_id)

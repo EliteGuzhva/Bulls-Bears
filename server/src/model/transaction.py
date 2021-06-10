@@ -38,6 +38,18 @@ class Transaction:
         self._timestamp = timestamp
         self._operation_type = operation_type
 
+    @property
+    def amount(self) -> int:
+        return self._amount
+
+    @property
+    def timestamp(self) -> str:
+        return self._timestamp
+
+    @property
+    def operation_type(self) -> OperationType:
+        return self._operation_type
+
     @classmethod
     def from_json(cls, json_data):
         amount = json_data["amount"]
@@ -62,3 +74,12 @@ class Transaction:
         }
 
         return json_data
+
+    def sum(self) -> float:
+        _sum: float = self._price * self._amount
+        if self._operation_type == OperationType.BUY:
+            _sum = -_sum - self._commission
+        else:
+            _sum = _sum - self._commission
+
+        return _sum
