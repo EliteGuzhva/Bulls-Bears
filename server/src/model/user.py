@@ -26,12 +26,16 @@ class User:
             self._sandbox_data = sandbox_data
 
     @property
-    def password_hash(self):
+    def password_hash(self) -> str:
         return self._password
 
     @property
-    def user_id(self):
+    def user_id(self) -> str:
         return self._id
+
+    @property
+    def sandbox_data(self) -> SandboxData:
+        return self._sandbox_data
 
     def set_user_id(self, uid: str):
         self._id = uid

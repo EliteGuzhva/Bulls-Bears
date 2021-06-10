@@ -13,6 +13,25 @@ class Asset:
         self._amount = amount
         self._transactions = transactions
 
+    @property
+    def ticker(self) -> str:
+        return self._ticker
+
+    @property
+    def amount(self) -> int:
+        return self._amount
+
+    @amount.setter
+    def amount(self, value: int):
+        self._amount = value
+
+    @property
+    def transactions(self) -> List[Transaction]:
+        return self._transactions
+
+    def add_transaction(self, transaction: Transaction):
+        self._transactions.append(transaction)
+
     @classmethod
     def from_json(cls, json_data):
         ticker = json_data["ticker"]
