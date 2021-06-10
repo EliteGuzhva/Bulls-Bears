@@ -11,7 +11,7 @@ docker run \
     --rm -t \
     -p 5000:5000 \
     -e SECRET_KEY="Bulls&Bears" \
-    elit3guzhva/bulls-bears-server:0.0.6
+    elit3guzhva/bulls-bears-server:0.0.7
 ```
 
 ## Сборка докер-образа вручную
