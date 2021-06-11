@@ -6,6 +6,9 @@ import yfinance as yf
 import pandas as pd
 from typing import Dict, List, Optional
 
+from pandas import Series
+
+
 class TickerWarehouse:
 
     _ticker_info = {}
@@ -42,31 +45,36 @@ class TickerWarehouse:
     def get_all_history(self) -> Dict[str, pd.DataFrame]:
         return self._ticker_history
 
-    def get_ticker_history(self, ticker_name: str) -> Optional[pd.DataFrame]:
+    def get_ticker_history_in_range_df(self, ticker_name: str, start, finish, is_timestamp: bool = True) -> Optional[pd.DataFrame]:
         if(ticker_name not in self._ticker_set):
             #todo: log
             return None
-        return self._ticker_history[ticker_name]
 
-    def get_ticker_history_in_range_df(self, ticker_name: str, start, finish, is_timestamp: bool = True) -> Optional[pd.DataFrame]:
         datetime_start = start
         datetime_finish = finish
 
         if is_timestamp:
-            datetime_start = datetime.fromtimestamp(start)
-            datetime_finish = datetime.fromtimestamp(finish)
+            datetime_start = datetime.fromtimestamp(start).date()
+            datetime_finish = datetime.fromtimestamp(finish).date()
 
         retval_df = self._ticker_history[ticker_name].loc[datetime_start:datetime_finish]
         return retval_df
-
-    def get_ticker_history_as_json(self, ticker_name: str) -> Optional[str]:
-        if(ticker_name not in self._ticker_set):
-            #todo: log
-            return None
-        return self.get_ticker_history(ticker_name).to_json(orient="index")
 
     def get_ticker_history_in_range_json(self, ticker_name: str, start, finish, is_timestamp: bool = True) -> Optional[str]:
         df_ans = self.get_ticker_history_in_range_df(ticker_name, start, finish, is_timestamp)
         if(df_ans is None):
             return None
-        return df_ans.to_json(orient="index")
+        return df_ans.to_json(orient="index", date_unit="s")
+
+    def get_ticker_history(self, ticker_name: str) -> Optional[pd.DataFrame]:
+        return self.get_ticker_history_in_range_df(ticker_name, "1700-01-01", "2050-01-01", is_timestamp=False)
+
+    def get_ticker_history_as_json(self, ticker_name: str) -> Optional[str]:
+        return self.get_ticker_history_in_range_json(ticker_name, "1700-01-01", "2050-01-01", is_timestamp=False)
+
+    def get_data_for_ticker_at_time_as_json(self, ticker_name: str, time, is_timestamp: bool = True) -> Optional[pd.Series]:
+        single_frame = self.get_ticker_history_in_range_df(ticker_name, time, time, is_timestamp=is_timestamp)
+        if (single_frame.size != 7):
+            return None
+        return single_frame.iloc[0].to_json(orient="index")
+
