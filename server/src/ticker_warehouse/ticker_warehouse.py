@@ -72,7 +72,7 @@ class TickerWarehouse:
     def get_ticker_history_as_json(self, ticker_name: str) -> Optional[str]:
         return self.get_ticker_history_in_range_json(ticker_name, "1700-01-01", "2050-01-01", is_timestamp=False)
 
-    def get_data_for_ticker_at_time_as_json(self, ticker_name: str, time, is_timestamp: bool = True) -> Optional[pd.Series]:
+    def get_data_for_ticker_at_time_as_json(self, ticker_name: str, time, is_timestamp: bool = True) -> Optional[str]:
         single_frame = self.get_ticker_history_in_range_df(ticker_name, time, time, is_timestamp=is_timestamp)
         if (single_frame.size != 7):
             return None
