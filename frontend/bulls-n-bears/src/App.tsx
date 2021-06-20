@@ -10,6 +10,8 @@ import { EducationPage } from './Components/Education/EducationPage';
 import { Provider } from 'react-redux';
 import store from './store';
 import { EducationLesson } from './Components/Education/EducationLesson';
+import { SignIn } from './Components/Auth/SignIn';
+import { SignUp } from './Components/Auth/SignUp';
 function App() {
   return (
     <Provider store={store}>
@@ -26,6 +28,12 @@ function App() {
               </Route>
               <Route path="/education/:lessonDataId">
                 <EducationLesson />
+              </Route>
+              <Route path="/sign-in">
+                <SignIn />
+              </Route>
+              <Route path="/sign-up">
+                <SignUp />
               </Route>
             </Switch>
             {/* <Typography variant="h1">Bulls and Bears</Typography> */}

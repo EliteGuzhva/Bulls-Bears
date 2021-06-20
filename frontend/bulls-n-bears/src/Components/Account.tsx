@@ -1,5 +1,7 @@
 import { Button, makeStyles } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useHistorySetter } from '../custom-hooks/useHistorySetter';
 
 const useStyles = makeStyles({
   account: {},
@@ -7,5 +9,10 @@ const useStyles = makeStyles({
 
 export const Account: React.FunctionComponent = () => {
   const classes = useStyles();
-  return <Button color="inherit">Login/Register</Button>;
+  const setHistory = useHistorySetter('/sign-in');
+  return (
+    <Button color="inherit" onClick={setHistory}>
+      Login/Register
+    </Button>
+  );
 };
