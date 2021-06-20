@@ -4,4 +4,5 @@ COPY bulls-n-bears/yarn.lock /app/
 WORKDIR /app
 RUN yarn install
 COPY bulls-n-bears /app
+CMD ["yarn", "start"]
 
