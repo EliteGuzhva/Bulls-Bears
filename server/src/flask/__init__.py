@@ -1,11 +1,13 @@
 import os
 from flask import Flask
+from flask_cors import CORS
 
 from . import db, fin, auth
 
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
 
     SECRET_KEY = os.environ.get("SECRET_KEY")
     if SECRET_KEY is None:
