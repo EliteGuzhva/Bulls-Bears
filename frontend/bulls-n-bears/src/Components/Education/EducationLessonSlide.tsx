@@ -21,7 +21,7 @@ export const EducationLessonSlide: React.FunctionComponent<EducationLessonSlideP
   return (
     <div>
       {media.length > 0 && renderMedia()}
-      <ReactMarkdown>{text}</ReactMarkdown>{' '}
+      <ReactMarkdown>{text}</ReactMarkdown>
     </div>
   );
 };
