@@ -29,7 +29,7 @@ export const getAllLessons = (): ThunkAction<
   {},
   AnyAction
 > => async (dispatch) => {
-  const response = await fetch(`${API_URL}/get_all_lessons`);
+  const response = await fetch(`${API_URL}/db/get_all_lessons`);
   const responseJson: GetAllLessonsResponse = await response.json();
   dispatch(setLessons(responseJson.lessons));
 };
@@ -39,7 +39,7 @@ export const getLessonData = (
   lessonDataId: LessonDataId
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => async (dispatch) => {
   const response = await fetch(
-    `${API_URL}/get_lesson_data?uid=${lessonDataId}`
+    `${API_URL}/db/get_lesson_data?uid=${lessonDataId}`
   );
   const responseJson: GetLessonDataResponse = await response.json();
   const {
