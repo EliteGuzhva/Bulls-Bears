@@ -12,32 +12,35 @@ import store from './store';
 import { EducationLesson } from './Components/Education/EducationLesson';
 import { SignIn } from './Components/Auth/SignIn';
 import { SignUp } from './Components/Auth/SignUp';
+import { AuthProvider } from './context/useAuth';
 function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <HashRouter>
-          <NavigationBar />
-          <Page>
-            <Switch>
-              <Route path="/home">
-                <HomePage />
-              </Route>
-              <Route exact path="/education">
-                <EducationPage />
-              </Route>
-              <Route path="/education/:lessonDataId">
-                <EducationLesson />
-              </Route>
-              <Route path="/sign-in">
-                <SignIn />
-              </Route>
-              <Route path="/sign-up">
-                <SignUp />
-              </Route>
-            </Switch>
-            {/* <Typography variant="h1">Bulls and Bears</Typography> */}
-          </Page>
+          <AuthProvider>
+            <NavigationBar />
+            <Page>
+              <Switch>
+                <Route path="/home">
+                  <HomePage />
+                </Route>
+                <Route exact path="/education">
+                  <EducationPage />
+                </Route>
+                <Route path="/education/:lessonDataId">
+                  <EducationLesson />
+                </Route>
+                <Route path="/sign-in">
+                  <SignIn />
+                </Route>
+                <Route path="/sign-up">
+                  <SignUp />
+                </Route>
+              </Switch>
+              {/* <Typography variant="h1">Bulls and Bears</Typography> */}
+            </Page>
+          </AuthProvider>
         </HashRouter>
       </ThemeProvider>
     </Provider>
