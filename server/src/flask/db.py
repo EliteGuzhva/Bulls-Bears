@@ -11,6 +11,11 @@ def get_db():
 
     return g.db
 
+@bp.route('/get_user')
+@auth.token_required
+def get_user(user):
+    return user.to_json(), 200
+
 @bp.route('/get_all_lessons')
 def get_all_lessons():
     db = get_db()
