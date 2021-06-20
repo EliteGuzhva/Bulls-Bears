@@ -5,6 +5,13 @@
 cd frontend/ci/docker
 ./run.sh
 ```
+или
+```bash
+docker run \
+    --rm -t \
+    -p 3000:3000 \
+    elit3guzhva/bulls-bears-frontend:0.0.3
+```
 
 ## Сборка докер-образа вручную
 ```bash
