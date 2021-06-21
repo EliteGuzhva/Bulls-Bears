@@ -5,6 +5,7 @@ export interface Lesson {
   title: string;
   description: string;
   level_name: string;
+  photo_url: string;
 }
 
 export type LessonDataId = string;
@@ -24,6 +25,7 @@ export interface LessonForLevel {
   title: string;
   description: string;
   index: number;
+  media: string;
 }
 
 export interface Level {

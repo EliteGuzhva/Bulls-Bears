@@ -13,7 +13,7 @@ export const EducationLessonTabs: React.FunctionComponent<EducationLessonTabsPro
 }) => {
   const classes = useStyles();
   return (
-    <div>
+    <div className={classes.container}>
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -28,4 +28,8 @@ export const EducationLessonTabs: React.FunctionComponent<EducationLessonTabsPro
   );
 };
 
-const useStyles = makeStyles({});
+const useStyles = makeStyles({
+  container: {
+    backgroundColor: '#fefefe',
+  },
+});

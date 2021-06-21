@@ -19,5 +19,6 @@ export const Page: React.FunctionComponent<Props> = ({ children }) => {
 const useStyles = makeStyles({
   content: {
     height: '100vh',
+    marginTop: '20px',
   },
 });

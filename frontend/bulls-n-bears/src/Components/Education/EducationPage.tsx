@@ -37,7 +37,7 @@ export const EducationPage: React.FunctionComponent<EducationPageProps> = (
   const classes = useStyles();
   if (levels !== undefined) {
     return (
-      <div>
+      <div className={classes.container}>
         {levels.map((levelData) => (
           <EducationLevel {...levelData} key={levelData.levelName} />
         ))}
@@ -46,4 +46,10 @@ export const EducationPage: React.FunctionComponent<EducationPageProps> = (
   } else return null;
 };
 
-const useStyles = makeStyles({});
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '40px',
+  },
+});
