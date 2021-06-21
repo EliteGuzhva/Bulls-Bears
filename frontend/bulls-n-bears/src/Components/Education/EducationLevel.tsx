@@ -11,7 +11,7 @@ export const EducationLevel: React.FunctionComponent<EducationLevelProps> = ({
   lessons,
 }) => (
   <Paper>
-    <Typography>{`${levelName}`}</Typography>
+    <Typography variant="subtitle1">{`${levelName.toUpperCase()}`}</Typography>
     <EducationLessonPreviewRow lessons={lessons} />
   </Paper>
 );

@@ -6,12 +6,14 @@ export const mapLessonToLessonForLevel = ({
   index,
   description,
   title,
+  photo_url,
 }: Lesson): LessonForLevel => ({
   id,
   data,
   title,
   description,
   index,
+  media: photo_url,
 });
 
 export const getLevelFromLessons = (

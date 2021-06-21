@@ -25,14 +25,6 @@ const links: LinkEntity[] = [
     url: '/home',
   },
   {
-    name: 'About',
-    url: '/about',
-  },
-  {
-    name: 'Contact',
-    url: '/contact',
-  },
-  {
     name: 'Education',
     url: '/education',
   },

@@ -46,11 +46,6 @@ export const EducationLessonPreview: React.FunctionComponent<EducationLessonPrev
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Learn
-        </Button>
-      </CardActions>
     </Card>
   );
 };
