@@ -1,6 +1,8 @@
 FROM ubuntu:latest
 RUN apt-get update -y
 RUN apt-get install -y python3-pip python3-dev build-essential
-COPY src/requirements.txt /requirements.txt
-WORKDIR /
+COPY ./requirements.txt /app/
+WORKDIR /app
 RUN pip3 install -r requirements.txt
+COPY . /app
+CMD ["python3", "-m", "src.test"]

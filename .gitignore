@@ -3,3 +3,6 @@
 .vscode
 .DS_Store
 server/venv
+*__pycache__*
+.vim
+server/pyrightconfig.json
