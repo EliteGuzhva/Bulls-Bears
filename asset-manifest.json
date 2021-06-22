@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Bulls-Bears/static/css/main.14c98d14.chunk.css",
-    "main.js": "/Bulls-Bears/static/js/main.92e42ddc.chunk.js",
-    "main.js.map": "/Bulls-Bears/static/js/main.92e42ddc.chunk.js.map",
+    "main.js": "/Bulls-Bears/static/js/main.2d166260.chunk.js",
+    "main.js.map": "/Bulls-Bears/static/js/main.2d166260.chunk.js.map",
     "runtime-main.js": "/Bulls-Bears/static/js/runtime-main.0bb9dbe0.js",
     "runtime-main.js.map": "/Bulls-Bears/static/js/runtime-main.0bb9dbe0.js.map",
     "static/js/2.84b033ad.chunk.js": "/Bulls-Bears/static/js/2.84b033ad.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0bb9dbe0.js",
     "static/js/2.84b033ad.chunk.js",
     "static/css/main.14c98d14.chunk.css",
-    "static/js/main.92e42ddc.chunk.js"
+    "static/js/main.2d166260.chunk.js"
   ]
 }
