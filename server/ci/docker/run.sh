@@ -4,5 +4,5 @@
 
 docker run \
     --rm -t \
-    -p 5000:5000 \
+    -p $PORT:$PORT \
     ${HUB_USER}/${REPO_NAME}:${TAG}
