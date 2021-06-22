@@ -1,18 +1,24 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
-import { jsx } from '@emotion/react';
-import { PageContainer } from './PageContainer';
+import { Box, Container, makeStyles } from '@material-ui/core';
+import { NavigationBar } from './NavigationBar';
 
-export interface Props {}
-export const Page: React.FunctionComponent<Props> = (props) => {
+export interface Props {
+  children?: JSX.Element;
+}
+export const Page: React.FunctionComponent<Props> = ({ children }) => {
+  const classes = useStyles();
   return (
-    <PageContainer>
-      <div css={style}>Bulls & Bears</div>
-    </PageContainer>
+    <>
+      <Container maxWidth="md">
+        <Box className={classes.content}>{children}</Box>
+      </Container>
+    </>
   );
 };
 
-const style = {
-  color: '#5d3636',
-  fontSize: 30,
-};
+const useStyles = makeStyles({
+  content: {
+    height: '100vh',
+    marginTop: '20px',
+  },
+});
