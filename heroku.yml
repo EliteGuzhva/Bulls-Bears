@@ -2,4 +2,4 @@ build:
   docker:
     web: server/Dockerfile
   config:
-    SECRET_KEY: Bulls&Bears
+    secret_key: Bulls&Bears
