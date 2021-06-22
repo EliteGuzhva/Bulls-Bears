@@ -5,4 +5,6 @@ COPY ./requirements.txt /app/
 WORKDIR /app
 RUN pip3 install -r requirements.txt
 COPY . /app
-CMD ["python3", "-m", "src.test"]
+ARG secret_key
+ENV SECRET_KEY=$secret_key
+CMD ["python3", "-m", "src.main"]

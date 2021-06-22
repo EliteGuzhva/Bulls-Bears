@@ -3,4 +3,7 @@
 . ./.env
 
 cd ../..
-docker build -t ${HUB_USER}/${REPO_NAME}:${TAG} -f ci/docker/Dockerfile .
+docker build \
+    --build-arg secret_key=${SECRET_KEY} \
+    -t ${HUB_USER}/${REPO_NAME}:${TAG} \
+    .
