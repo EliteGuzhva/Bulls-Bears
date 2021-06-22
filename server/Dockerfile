@@ -7,4 +7,4 @@ RUN pip3 install -r requirements.txt
 COPY . /app
 ARG secret_key
 ENV SECRET_KEY=$secret_key
-CMD ["python3", "-m", "src.main"]
+CMD ["gunicorn", "src.main:create_app()"]
