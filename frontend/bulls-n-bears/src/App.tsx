@@ -13,6 +13,7 @@ import { EducationLesson } from './Components/Education/EducationLesson';
 import { SignIn } from './Components/Auth/SignIn';
 import { SignUp } from './Components/Auth/SignUp';
 import { AuthProvider } from './context/useAuth';
+import { Sandbox } from './Components/Sandbox/Sandbox';
 function App() {
   return (
     <Provider store={store}>
@@ -27,6 +28,9 @@ function App() {
                 </Route>
                 <Route exact path="/education">
                   <EducationPage />
+                </Route>
+                <Route exact path="/sandbox">
+                  <Sandbox />
                 </Route>
                 <Route path="/education/:lessonDataId">
                   <EducationLesson />
