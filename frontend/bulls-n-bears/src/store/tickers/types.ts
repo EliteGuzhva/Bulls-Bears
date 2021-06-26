@@ -3,7 +3,7 @@
  */
 
 export interface TickerData {
-  timestamp: number;
+  date: Date;
   close: number;
   high: number;
   low: number;

@@ -30,3 +30,21 @@ export const getAllTickerHistory = (
     )
   );
 };
+
+export const getTickerHistory = (
+  tickerName: string,
+  begin: Date,
+  end: Date
+): ThunkAction<Promise<void>, {}, {}, AnyAction> => async (dispatch) => {
+  const response = await fetch(
+    `${API_URL}/fin/get_ticker_history?ticker=${tickerName}&begin=${begin.getTime()}&end=${end.getTime()}`
+  );
+
+  const responseJson: GetTickerResponse = await response.json();
+  dispatch(
+    setTickerData(
+      tickerName,
+      mapGetTickerResponseToTickerDataArray(responseJson)
+    )
+  );
+};
