@@ -4,7 +4,7 @@ export const mapGetTickerResponseToTickerDataArray = (
   response: GetTickerResponse
 ): TickerData[] =>
   Object.entries(response).map(([timestamp, { Close, High, Low, Open }]) => ({
-    timestamp: Number(timestamp),
+    date: new Date(Number(timestamp) * 1000),
     close: Close,
     high: High,
     low: Low,
