@@ -27,14 +27,14 @@ export const ChartRouter: React.FunctionComponent<ChartRouterProps> = (
   useEffect(() => {
     if (data === undefined && current !== undefined) {
       const monthBefore = addMonths(current, -3);
-      dispatch(getTickerHistory(tickerName, monthBefore, current));
+      dispatch(getTickerHistory(tickerName, monthBefore, addDays(current, 1)));
     }
   }, [data, tickerName, dispatch, current]);
   // add ticker data by current update
   useEffect(() => {
     if (data !== undefined && current !== undefined) {
-      const begin = floorHours(current);
-      const end = ceilHours(current);
+      const begin = current;
+      const end = addDays(current, 1);
       dispatch(addTickerHistory(tickerName, begin, end));
     }
   }, [current]);

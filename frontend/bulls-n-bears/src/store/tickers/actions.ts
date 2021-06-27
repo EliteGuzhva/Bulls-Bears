@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { floorHours, mapDateToTimestamp } from '../../utils/date';
 import {
   AppendTickerData,
   SetAvailableTickers,
@@ -64,7 +65,7 @@ export const getTickerHistory = (
   end: Date
 ): ThunkAction<Promise<void>, {}, {}, AnyAction> => async (dispatch) => {
   const beginTimestamp = begin.getTime() / 1000;
-  const endTimestamp = end.getTime() / 1000;
+  const endTimestamp = floorHours(end).getTime() / 1000;
   const response = await fetch(
     `${API_URL}/fin/get_ticker_history?ticker=${tickerName}&begin=${beginTimestamp}&end=${endTimestamp}`
   );
@@ -93,7 +94,7 @@ export const addTickerHistory = (
   const responseJson: GetTickerResponse = await response.json();
   const tickersData = mapGetTickerResponseToTickerDataArray(
     responseJson
-  ).filter(({ date }) => date > begin);
+  ).filter(({ date }) => date >= begin);
   tickersData.forEach((d) => console.log(d.date));
   const addValue = tickersData[0];
   if (tickersData.length !== 0) {
@@ -101,13 +102,13 @@ export const addTickerHistory = (
   }
 };
 
-export const loadAvailableTickers = (): ThunkAction<
-  Promise<void>,
-  {},
-  {},
-  AnyAction
-> => async (dispatch) => {
-  const response = await fetch(`${API_URL}/fin/get_available_tickers`);
+export const loadAvailableTickers = (
+  date: Date
+): ThunkAction<Promise<void>, {}, {}, AnyAction> => async (dispatch) => {
+  const timestamp = mapDateToTimestamp(date);
+  const response = await fetch(
+    `${API_URL}/fin/get_existing_tickers?time=${timestamp}`
+  );
   const responseJson: { tickers: string[] } = await response.json();
   dispatch(setAvailableTickers(responseJson.tickers));
 };

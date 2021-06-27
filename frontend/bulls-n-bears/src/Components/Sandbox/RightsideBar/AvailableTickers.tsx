@@ -9,7 +9,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getAvailableTickers } from '../../../selectors/tickers/tickers';
 import { useEffect } from 'react';
-import { loadAvailableTickers } from '../../../store/tickers';
+import {
+  loadAvailableTickers,
+  setSelectedTicker,
+} from '../../../store/tickers';
+import useAuth from '../../../context/useAuth';
 
 export interface AvailableTickersProps {}
 export const AvailableTickers: React.FunctionComponent<AvailableTickersProps> = (
@@ -18,17 +22,21 @@ export const AvailableTickers: React.FunctionComponent<AvailableTickersProps> = 
   const classes = useStyles();
   const dispatch = useDispatch();
   const tickers = useSelector(getAvailableTickers);
+  const { user } = useAuth();
   useEffect(() => {
-    if (tickers.length === 0) {
-      dispatch(loadAvailableTickers());
+    if (tickers.length === 0 && user !== undefined) {
+      dispatch(loadAvailableTickers(user.sandboxData.currentTime));
     }
-  });
+  }, [tickers]);
+  const handleTickerClick = (name: string) => {
+    dispatch(setSelectedTicker(name));
+  };
   return (
     <div>
       {tickers.length > 0 ? (
         <List>
           {tickers.map((ticker) => (
-            <ListItem>
+            <ListItem onClick={() => handleTickerClick(ticker)}>
               <ListItemText primary={ticker} />
             </ListItem>
           ))}

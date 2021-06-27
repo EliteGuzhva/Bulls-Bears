@@ -12,7 +12,7 @@ export interface Transaction {
 export interface Asset {
   amount: number;
   ticker: string;
-  transactions: Transaction[];
+  transactions: TransactionWithTicker[];
 }
 export interface SandboxData {
   assets: Asset[];
@@ -25,4 +25,13 @@ export interface User {
   username: string;
   sandboxData: SandboxData;
   email: string;
+}
+
+export interface TransactionWithTicker {
+  amount: number;
+  commission: number;
+  operationType: OperationType;
+  timestamp: number;
+  price: number;
+  ticker: string;
 }

@@ -4,24 +4,35 @@ import {
   ServerAsset,
   ServerSandboxData,
 } from '../../types/serverUser';
-import { Asset, SandboxData, Transaction, User } from '../../types/user';
+import {
+  Asset,
+  SandboxData,
+  Transaction,
+  TransactionWithTicker,
+  User,
+} from '../../types/user';
 import { mapTimestampToDate } from '../../utils/date';
 
-const mapServerTransactionToTransaction = (
+const mapServerTransactionToTransaction = (ticker: string) => (
   serverTransaction: ServerTransaction
-): Transaction => {
+): TransactionWithTicker => {
   const { operation_type, ...rest } = serverTransaction;
   return {
     operationType: operation_type,
+    ticker,
     ...rest,
   };
 };
 
 const mapServerAssetToAsset = (serverAsset: ServerAsset): Asset => {
-  const { transactions, ...rest } = serverAsset;
+  const { transactions, ticker, ...rest } = serverAsset;
+  const mapTransactionToTransactionWithTicker = mapServerTransactionToTransaction(
+    ticker
+  );
   return {
+    ticker,
+    transactions: transactions.map(mapTransactionToTransactionWithTicker),
     ...rest,
-    transactions: transactions.map(mapServerTransactionToTransaction),
   };
 };
 
