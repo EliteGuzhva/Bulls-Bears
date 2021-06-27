@@ -13,6 +13,7 @@ import { TransactionsHistory } from './RightsideBar/TransactionsHistory';
 import { Assets } from './RightsideBar/Assets';
 import useAuth from '../../context/useAuth';
 import { SandboxInit } from './SandboxInit';
+import { SandboxContent } from './SandboxContent';
 
 export interface SandboxProps {}
 const tickerName = 'AAPL';
@@ -24,10 +25,7 @@ export const Sandbox: React.FunctionComponent<SandboxProps> = (props) => {
       {start !== undefined && start.getTime() !== 0 ? (
         <>
           <ChartRouter />
-          <Transactions />
-          <AvailableTickers />
-          <TransactionsHistory />
-          <Assets />
+          <SandboxContent />
         </>
       ) : (
         <SandboxInit />
