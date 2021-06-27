@@ -6,23 +6,21 @@ import {
 } from '@material-ui/pickers';
 import { useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
+import { useSandboxInit } from '../../custom-hooks/useSandboxInit';
 
 export interface SandboxInitProps {}
 export const SandboxInit: React.FunctionComponent<SandboxInitProps> = (
   props
 ) => {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date()
-  );
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
-  };
-  const [amount, setAmount] = useState(0);
-  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(event.target.value);
-    setAmount(val);
-  };
+
+  const {
+    amount,
+    selectedDate,
+    handleAmountChange,
+    handleDateChange,
+    handleInitClick,
+  } = useSandboxInit();
   return (
     <div className={classes.container}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -47,7 +45,9 @@ export const SandboxInit: React.FunctionComponent<SandboxInitProps> = (
         onChange={handleAmountChange}
         label="Balance"
       />
-      <Button className={classes.sameWidth}>Create sandbox</Button>
+      <Button className={classes.sameWidth} onClick={handleInitClick}>
+        Create sandbox
+      </Button>
     </div>
   );
 };

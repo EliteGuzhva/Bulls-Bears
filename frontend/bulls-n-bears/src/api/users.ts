@@ -67,3 +67,29 @@ export const sandboxStep = async (params: {
   console.log(`New user current time: ${user.sandboxData.currentTime}`);
   return user;
 };
+
+export const sandboxInit = async (params: {
+  token: string;
+  currentTime: Date;
+  balance: number;
+}) => {
+  const { token, currentTime, balance } = params;
+  const newTime = String(mapDateToTimestamp(addDays(currentTime, 0)));
+  const formData = new FormData();
+  formData.append('virtual_start', newTime);
+  formData.append('balance', String(balance));
+  const response = await fetch(`${API_URL}/db/sandbox_init`, {
+    method: 'POST',
+    headers: {
+      'x-access-tokens': token,
+    },
+    body: formData,
+  });
+  const responseJson: ServerUser | { message: string } = await response.json();
+  if ('message' in responseJson) {
+    throw new Error(responseJson.message);
+  }
+  const user = mapServerUserToUser(responseJson);
+  console.log(`New user current time: ${user.sandboxData.currentTime}`);
+  return user;
+};

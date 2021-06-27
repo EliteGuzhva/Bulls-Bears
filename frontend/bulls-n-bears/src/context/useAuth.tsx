@@ -23,6 +23,7 @@ interface AuthContextType {
   logout(): Promise<void>;
   sandboxTransaction(params: TransactionParams): Promise<void>;
   sandboxStep(): Promise<void>;
+  sandboxInit(balance: number, date: Date): Promise<void>;
 }
 // eslint-disable
 const AuthContext = createContext<Partial<AuthContextType>>({});
@@ -96,6 +97,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
+
+  const sandboxInit = async (balance: number, date: Date) => {
+    if (user !== undefined && token) {
+      setLoading(true);
+      const userAfterInit = await users.sandboxInit({
+        token,
+        currentTime: date,
+        balance,
+      });
+      setUser(userAfterInit);
+      setLoading(false);
+    }
+  };
   const memoedValue = useMemo(
     () => ({
       token,
@@ -106,6 +120,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       logout,
       sandboxTransaction,
       sandboxStep,
+      sandboxInit,
     }),
     [token, loading, user]
   );
