@@ -100,7 +100,7 @@ def login():
             return util.message_to_json("No SECRET_KEY")
 
         token = jwt.encode({'user_id': user.user_id,
-                            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
+                            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=360)},
                            SECRET_KEY, algorithm="HS256")
 
         token_str: str = ""

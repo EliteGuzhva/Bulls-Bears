@@ -10,6 +10,11 @@ tw = TickerWarehouse()
 def get_available_tickers():
     return {"tickers": list(tw.get_tickers_set())}
 
+@bp.route('/get_existing_tickers')
+def get_existing_tickers():
+    time: int = int(str(request.args.get("time")))
+    return {"tickers": list(tw.get_available_tickers_set(time))}
+
 @bp.route('/get_all_ticker_history')
 def get_all_ticker_history():
     ticker: str = str(request.args.get("ticker"))
