@@ -8,7 +8,16 @@ export const tickers = (state: State = initialState, action: Action): State => {
         ...state,
         tickersData: {
           ...state.tickersData,
-          [action.tickerName]: action.tickerData,
+          [action.tickerName]: action.tickersData,
+        },
+      };
+    case TickersActionType.AppendTickerData:
+      const { tickerName, tickerData } = action;
+      return {
+        ...state,
+        tickersData: {
+          ...state.tickersData,
+          [tickerName]: [...state.tickersData[tickerName], tickerData],
         },
       };
     default:

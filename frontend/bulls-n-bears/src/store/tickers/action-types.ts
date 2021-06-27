@@ -2,12 +2,21 @@ import { TickerData } from './types';
 
 export enum TickersActionType {
   SetTickerData = 'SET_TICKER_DATA',
+  AppendTickerData = 'APPEND_TICKER_DATA',
+  SetSelectedTicker = 'SET_SELECTED_TICKER',
 }
 
-export interface SetTickerData {
-  type: TickersActionType.SetTickerData;
+interface WithTickerName {
   tickerName: string;
-  tickerData: TickerData[];
+}
+export interface SetTickerData extends WithTickerName {
+  type: TickersActionType.SetTickerData;
+  tickersData: TickerData[];
 }
 
-export type Action = SetTickerData;
+export interface AppendTickerData extends WithTickerName {
+  type: TickersActionType.AppendTickerData;
+  tickerData: TickerData;
+}
+
+export type Action = SetTickerData | AppendTickerData;

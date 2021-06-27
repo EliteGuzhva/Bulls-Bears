@@ -3,13 +3,12 @@ import { TickerData } from '../../store/tickers';
 import { Chart } from 'react-google-charts';
 interface TickerChartProps {
   data: TickerData[];
-  // height: number;
-  // width: number;
-  // ratio: number;
+  tickerName: string;
 }
 
 export const TickerChart: React.FunctionComponent<TickerChartProps> = ({
   data,
+  tickerName,
 }) => {
   const dataToDisplay = [
     ['day', 'a', 'b', 'c', 'd'],
@@ -27,6 +26,7 @@ export const TickerChart: React.FunctionComponent<TickerChartProps> = ({
       data={dataToDisplay}
       chartType="CandlestickChart"
       options={{
+        title: tickerName,
         legend: 'none',
       }}
       rootProps={{ 'data-testid': '1' }}
@@ -38,7 +38,7 @@ export const TickerChart: React.FunctionComponent<TickerChartProps> = ({
             ui: {
               chartType: 'LineChart',
               chartOptions: {
-                chartArea: { width: '90%', height: '50%' },
+                chartArea: { width: '90%', height: '20%' },
                 hAxis: { baselineColor: 'none' },
               },
             },
