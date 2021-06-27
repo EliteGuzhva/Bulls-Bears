@@ -16,3 +16,6 @@ export const getLastTickerData = (state: RootState, tickerName: string) => {
     return [...data].pop();
   }
 };
+
+export const getAvailableTickers = (state: RootState) =>
+  state.tickers.availableTickerNames;

@@ -4,6 +4,7 @@ export enum TickersActionType {
   SetTickerData = 'SET_TICKER_DATA',
   AppendTickerData = 'APPEND_TICKER_DATA',
   SetSelectedTicker = 'SET_SELECTED_TICKER',
+  SetAvailableTickers = 'SET_AVAILABLE_TICKERS',
 }
 
 interface WithTickerName {
@@ -19,4 +20,18 @@ export interface AppendTickerData extends WithTickerName {
   tickerData: TickerData;
 }
 
-export type Action = SetTickerData | AppendTickerData;
+export interface SetAvailableTickers {
+  type: TickersActionType.SetAvailableTickers;
+  tickerNames: string[];
+}
+
+export interface SetSelectedTicker {
+  type: TickersActionType.SetSelectedTicker;
+  tickerName: string;
+}
+
+export type Action =
+  | SetTickerData
+  | AppendTickerData
+  | SetAvailableTickers
+  | SetSelectedTicker;

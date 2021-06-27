@@ -11,6 +11,7 @@ export const tickers = (state: State = initialState, action: Action): State => {
           [action.tickerName]: action.tickersData,
         },
       };
+
     case TickersActionType.AppendTickerData:
       const { tickerName, tickerData } = action;
       return {
@@ -19,6 +20,18 @@ export const tickers = (state: State = initialState, action: Action): State => {
           ...state.tickersData,
           [tickerName]: [...state.tickersData[tickerName], tickerData],
         },
+      };
+
+    case TickersActionType.SetAvailableTickers:
+      return {
+        ...state,
+        availableTickerNames: action.tickerNames,
+      };
+
+    case TickersActionType.SetSelectedTicker:
+      return {
+        ...state,
+        selectedTicker: action.tickerName,
       };
     default:
       return state;

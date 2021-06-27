@@ -2,6 +2,8 @@ import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import {
   AppendTickerData,
+  SetAvailableTickers,
+  SetSelectedTicker,
   SetTickerData,
   TickersActionType,
 } from './action-types';
@@ -26,6 +28,18 @@ export const appendTickerData = (
   type: TickersActionType.AppendTickerData,
   tickerData,
   tickerName,
+});
+
+export const setSelectedTicker = (tickerName: string): SetSelectedTicker => ({
+  type: TickersActionType.SetSelectedTicker,
+  tickerName,
+});
+
+export const setAvailableTickers = (
+  tickerNames: string[]
+): SetAvailableTickers => ({
+  type: TickersActionType.SetAvailableTickers,
+  tickerNames,
 });
 
 export const getAllTickerHistory = (
@@ -85,4 +99,15 @@ export const addTickerHistory = (
   if (tickersData.length !== 0) {
     dispatch(appendTickerData(tickerName, addValue));
   }
+};
+
+export const loadAvailableTickers = (): ThunkAction<
+  Promise<void>,
+  {},
+  {},
+  AnyAction
+> => async (dispatch) => {
+  const response = await fetch(`${API_URL}/fin/get_available_tickers`);
+  const responseJson: { tickers: string[] } = await response.json();
+  dispatch(setAvailableTickers(responseJson.tickers));
 };
