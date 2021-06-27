@@ -65,3 +65,19 @@ def test_get_price_for_time_timestamp():
     print()
     print(get_value_at_timestamp)
     print(type(get_value_at_timestamp))
+
+def test_get_available_tickers():
+    test_ticker_warehouse = TickerWarehouse()
+    date = 668034000
+    ans = test_ticker_warehouse.get_available_tickers_set(date)
+    print()
+    print(test_ticker_warehouse.get_tickers_set())
+    print(ans)
+
+def test_get_available_tickers_date():
+    test_ticker_warehouse = TickerWarehouse()
+    date = "1970-12-1"
+    ans = test_ticker_warehouse.get_available_tickers_set(date, is_timestamp=False)
+    print()
+    print(test_ticker_warehouse.get_tickers_set())
+    print(ans)

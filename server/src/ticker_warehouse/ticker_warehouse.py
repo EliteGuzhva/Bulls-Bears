@@ -41,6 +41,16 @@ class TickerWarehouse:
     def get_tickers_set(self) -> set:
         return self._ticker_set
 
+    def get_available_tickers_set(self, time, is_timestamp: bool = True) -> set:
+        if is_timestamp:
+            time = datetime.fromtimestamp(time)
+        retval = set()
+        for key, value in self._ticker_history.items():
+            if (value.loc[:time].shape[0] > 0):
+                retval.add(key)
+        return retval
+
+
     # get dictionary of all tickers str->DataFrame
     def get_all_history(self) -> Dict[str, pd.DataFrame]:
         return self._ticker_history
@@ -77,4 +87,3 @@ class TickerWarehouse:
         if (single_frame.size != 7):
             return None
         return single_frame.iloc[0].to_json(orient="index")
-
