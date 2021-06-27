@@ -9,12 +9,12 @@ cd frontend/ci/docker
 
 ### Docker команда
 ```bash
-docker run --rm -t -p 3000:3000 elit3guzhva/bulls-bears-frontend:0.0.6
+docker run --rm -it -p 3000:3000 elit3guzhva/bulls-bears-frontend:0.0.7
 ```
 
 ### Использовать сервер на Heroku
 ```bash
-docker run --rm -t -p 3000:3000 -e REACT_APP_SERVER_URL=https://bulls-bears-stonk-apps.herokuapp.com elit3guzhva/bulls-bears-frontend:0.0.6
+docker run --rm -it -p 3000:3000 -e REACT_APP_SERVER_URL=https://bulls-bears-stonk-apps.herokuapp.com elit3guzhva/bulls-bears-frontend:0.0.7
 ```
 
 ## Сборка докер-образа вручную
