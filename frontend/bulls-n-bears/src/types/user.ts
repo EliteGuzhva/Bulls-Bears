@@ -17,8 +17,8 @@ export interface Asset {
 export interface SandboxData {
   assets: Asset[];
   balance: number;
-  currentTime: number;
-  startTime: number;
+  currentTime: Date;
+  startTime: Date;
 }
 
 export interface User {

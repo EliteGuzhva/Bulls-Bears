@@ -5,6 +5,7 @@ import {
   ServerSandboxData,
 } from '../../types/serverUser';
 import { Asset, SandboxData, Transaction, User } from '../../types/user';
+import { mapTimestampToDate } from '../../utils/date';
 
 const mapServerTransactionToTransaction = (
   serverTransaction: ServerTransaction
@@ -31,8 +32,8 @@ const mapServerSandboxDataToSandboxData = (
   return {
     assets: assets.map(mapServerAssetToAsset),
     balance,
-    currentTime: virtual_current,
-    startTime: virtual_start,
+    currentTime: mapTimestampToDate(virtual_current),
+    startTime: mapTimestampToDate(virtual_start),
   };
 };
 

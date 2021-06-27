@@ -17,11 +17,13 @@ export interface Tickers {
 export interface State {
   tickersData: Tickers;
   availableTickerNames: string[];
+  selectedTicker: string;
 }
 
 export const initialState: State = {
   tickersData: {},
   availableTickerNames: [],
+  selectedTicker: 'AAPL',
 };
 
 /**
