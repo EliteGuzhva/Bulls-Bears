@@ -52,7 +52,7 @@ export const EducationLessonPreview: React.FunctionComponent<EducationLessonPrev
 
 const useStyles = makeStyles({
   media: {
-    height: '100px',
-    width: '200px',
+    height: '200px',
+    width: '300px',
   },
 });

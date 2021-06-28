@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   row: {
     display: 'flex',
     flexGrow: 1,
-    gap: '10px',
+    gap: '15px',
     margin: '5px',
   },
 });

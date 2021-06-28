@@ -39,6 +39,9 @@ export const UserInfo: React.FunctionComponent<UserInfoProps> = ({
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
+        getContentAnchorEl={null}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}

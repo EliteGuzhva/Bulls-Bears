@@ -52,10 +52,22 @@ export const EducationLesson: React.FunctionComponent<EducationLessonProps> = (
   );
   const renderButtons = () => (
     <div className={classes.buttons}>
-      <Button onClick={previousSlide} disabled={tab < 1}>
+      <Button
+        variant="contained"
+        size="large"
+        color="primary"
+        onClick={previousSlide}
+        disabled={tab < 1}
+      >
         Prev
       </Button>
-      <Button onClick={nextSlide} disabled={tab > tabsLabels.length - 2}>
+      <Button
+        variant="contained"
+        size="large"
+        color="primary"
+        onClick={nextSlide}
+        disabled={tab > tabsLabels.length - 2}
+      >
         Next
       </Button>
     </div>
@@ -64,7 +76,13 @@ export const EducationLesson: React.FunctionComponent<EducationLessonProps> = (
     <div>
       {lessonData !== undefined ? (
         <>
-          <Button onClick={goBack} className={classes.goBack}>
+          <Button
+            variant="outlined"
+            size="small"
+            color="secondary"
+            onClick={goBack}
+            className={classes.goBack}
+          >
             Go Back
           </Button>
           <div className={classes.root}>
@@ -106,6 +124,7 @@ const useStyles = makeStyles({
   },
   goBack: {
     marginLeft: '35px',
+    marginBottom: '15px',
   },
   progress: {
     display: 'flex',
