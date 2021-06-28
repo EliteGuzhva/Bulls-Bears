@@ -26,6 +26,10 @@ const history = `# Наша История
 ### Марк Головатских
 
 [GitHub](https://github.com/ujnomw)
+
+### Никита Гужва
+
+[GitHub](https://github.com/EliteGuzhva)
 `;
 
 const contacts = `# Контакты
