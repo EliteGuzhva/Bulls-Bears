@@ -50,6 +50,6 @@ const useStyles = makeStyles({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '40px',
+    gap: '30px',
   },
 });
