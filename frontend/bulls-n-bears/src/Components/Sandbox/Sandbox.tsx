@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTickerHistory, getTickerHistory } from '../../store/tickers';
@@ -25,6 +25,18 @@ export const Sandbox: React.FunctionComponent<SandboxProps> = (props) => {
       {start !== undefined && start.getTime() !== 0 ? (
         <>
           <ChartRouter />
+          {user !== undefined ? (
+            <>
+              <Typography variant="h6">
+                Balance: {user.sandboxData.balance.toFixed(2)}$
+              </Typography>
+              <Typography variant="h6">
+                Date: {user.sandboxData.currentTime.toString()}
+              </Typography>
+            </>
+          ) : (
+            <></>
+          )}
           <SandboxContent />
         </>
       ) : (

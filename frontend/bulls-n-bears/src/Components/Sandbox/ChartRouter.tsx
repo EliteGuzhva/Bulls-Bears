@@ -51,6 +51,6 @@ export const ChartRouter: React.FunctionComponent<ChartRouterProps> = (
 
 const useStyles = makeStyles({
   container: {
-    height: '600px',
+    height: '700px',
   },
 });

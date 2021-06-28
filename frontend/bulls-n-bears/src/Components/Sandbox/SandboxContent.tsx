@@ -59,7 +59,7 @@ export const SandboxContent: React.FunctionComponent<SandboxContentProps> = (
         <Tab label="Transaction" />
         <Tab label="Tickers" />
         <Tab label="History" />
-        <Tab label="Your Assets" />
+        <Tab label="Portfolio" />
       </Tabs>
       <TabPanel value={value} index={0}>
         <Transactions />

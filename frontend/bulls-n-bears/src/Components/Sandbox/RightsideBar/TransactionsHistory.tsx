@@ -35,7 +35,7 @@ export const TransactionsHistory: React.FunctionComponent<TransactionsProps> = (
             ({ amount, price, operationType: type, ticker }) => (
               <ListItem>
                 <ListItemIcon>
-                  {type === OperationType.Buy ? <Add /> : <Remove />}
+                  {type === OperationType.Buy ? <Remove /> : <Add />}
                 </ListItemIcon>
                 <ListItemText
                   primary={`${amount} ${ticker}`}

@@ -23,11 +23,17 @@ export const TickerChart: React.FunctionComponent<TickerChartProps> = ({
   return (
     <Chart
       height={500}
+      width={'100%'}
       data={dataToDisplay}
       chartType="CandlestickChart"
       options={{
         title: tickerName,
         legend: 'none',
+        bar: { groupWidth: '100%' },
+        candlestick: {
+          fallingColor: { strokeWidth: 0, fill: '#a52714' },
+          risingColor: { strokeWidth: 0, fill: '#0f9d58' },
+        },
       }}
       rootProps={{ 'data-testid': '1' }}
       controls={[

@@ -14,7 +14,13 @@ export const SandboxStep: React.FunctionComponent<SandboxStepProps> = (
     }
   };
   return (
-    <Button onClick={handleStep} disabled={loading}>
+    <Button
+      variant="outlined"
+      size="large"
+      color="secondary"
+      onClick={handleStep}
+      disabled={loading}
+    >
       Step
     </Button>
   );
